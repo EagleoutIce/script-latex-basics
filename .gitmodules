@@ -1,3 +1,6 @@
 [submodule "pnp-skywrath-documentclass"]
 	path = pnp-skywrath-documentclass
 	url = https://github.com/EagleoutIce/pnp-skywrath-documentclass.git
+[submodule "sopra-collection"]
+	path = sopra-collection
+	url = git@github.com:EagleoutIce/sopra-collection.git
