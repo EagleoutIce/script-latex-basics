@@ -4,3 +4,6 @@
 [submodule "sopra-collection"]
 	path = sopra-collection
 	url = git@github.com:EagleoutIce/sopra-collection.git
+[submodule "lilly-dir"]
+	path = lilly-dir
+	url = https://github.com/EagleoutIce/lilly-dir
