@@ -25,6 +25,24 @@ jobs:
         with:
             remote: true
     
+      - name: Compile the listings-example document
+        uses: xu-cheng/latex-action@v2
+        with:
+          working_directory: docs/listings
+          root_file: lstexample.tex
+  
+      - name: Compile the first example
+        uses: xu-cheng/latex-action@v2
+        with:
+          working_directory: docs/example1
+          root_file: example1.tex
+
+      - name: Compile the uebungsblatt
+        uses: xu-cheng/latex-action@v2
+        with:
+          working_directory: docs/uebungsblatt
+          root_file: uebungsblatt.tex
+
       - name: Compile the main document
         uses: xu-cheng/latex-action@v2
         with:
