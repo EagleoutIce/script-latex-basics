@@ -1,0 +1,812 @@
+\def\LILLYxCOLORxEXTENSION{PURPLE}
+\documentclass[PnP-Guide,garamond]{Lilly}
+\def\Hcolor{Purple}
+\LoadLillyBoxMode{LIMERENCE}
+\usepackage{float}
+\usepackage{tikzducks}
+\def\tduck{\tikz[scale=0.15]{\duck}}
+
+\AtBeginDocument{%
+    \addtocontents{lof}{\protect\thispagestyle{scrheadings}}%
+}
+
+\def\blankcmd#1{\textcolor{Orchid}{\LILLYxlstTypeWriter\textbackslash\ignorespaces#1}}
+\newcommand\cmdidx[2][]{\index{#2`\blankcmd{#2}\ifx\\#1\\\else~\textsuperscript{(Paket: \T{#1})}\fi}}
+\newcommand\cmdsidx[3][]{\index{#3#2`\blankcmd{#2}\ifx\\#1\\\else~\textsuperscript{(Paket: \T{#1})}\fi}}
+
+\begin{document}
+\pnpsettitle{Ein grundlegender Einblick in \LaTeX}
+\pnpsetsubtitle{Ein (hoffentlich) einfacher Einstieg}
+
+\pnptitle
+\pnptoc
+
+\textit{Dieses Dokument erhebt den Anspruch einen grundlegend-tiefblickenden Einblick in die ruhigen Oberflächen der ach so tiefen \LaTeX-Gewässer zu vermitteln. Es wird im Rahmen des EidI-Tutoriums im Wintersemester 2019/2020 ausgebaut und (hoffentlich) verfeinert. Bei der Erstellung dieses Dokuments kam keine Ente zu schaden \tduck.}
+
+\section{\LaTeX{} herunterladen}
+\subsection{\faLinux{~} Linux}
+
+Auf Linux lässt sich \LaTeX{} einfach über das Paket \T{texlive} installieren. Dies ist zwar nicht immer \emph{aktuell}, wird aber dafür vollautomatisch für uns eingerichtet. So genügt auf einem \T{apt}-basierten System zum Beispiel:
+\begin{bash*}
+sudo apt install textlive-full
+\end{bash*}
+Anschließend können die Dokumente mittels des Terminals durch \cbash{pdflatex :lan:Dokumentname:ran:} kompiliert werden.\newline
+Wer immer die aktuelleste Version möchte, kann auch hier nachsehen \url{https://www.tug.org/texlive/tlmgr.html}, die Installation ist nicht zwangsläufig aufwändiger.
+
+\subsection{\faWindows{~} Windoof}
+
+Auch wenn es \T{texlive} ebenfalls für Linux gibt, so empfiehlt sich das Verwenden von \T{Mik\TeX}. Es lässt sich hier herunterladen: \url{https://miktex.org/download}. Um nun mit \LaTeX{} arbeiten zu können benötigt man ein weiteres Programm, wobei es hier viele Vertreter gibt. So gibt es: TeXmaker\footnote{\url{https://www.xm1math.net/texmaker/download.html}}, Kile\footnote{\url{https://kile.sourceforge.io/}} und TeXstudio\footnote{\url{https://www.texstudio.org/\#download}}, wobei ich letzteres empfehle. Die Programme sind allerdings alle hinsichtlich ihres Funktionsumfangs und ihrer Verwendung vergleichbar. Im Programm angekommen (für später \Smiley) lässt sich mittels eines Pfeils (oder in der Regel dem Tastaturkürzel \T{F5}) das \LaTeX-Dokument, das es noch zu schreiben gibt, kompilieren und anzeigen. Ich werde im Folgenden natürlich nur auf \LaTeX{} und nicht auf die tollen Features der jeweiligen \TeX-Editoren eingehen.
+
+\subsection{\faApple{~} Apple}
+Hier gilt es zu Unterscheiden, ob es sich nun um eine Tablet- oder um einen gängigen Laptop handelt. Für letzteren Fall ist wohl folgende Anleitung am ausführlichsten: \url{https://www.latexbuch.de/latex-apple-mac-os-x-installieren/}. Für IPad und co gibt es nun eine Reihe an mal kostenpflichtigen und mal kostenlosen Apps über deren Qualität ich nichts zu sagen vermag: TeXpad\footnote{\url{https://www.texpad.com/ios}}, VerbTeX\footnote{\url{https://apps.apple.com/us/app/iverbtex-latex-editor/id560869163}} TeX Writer\footnote{\url{https://apps.apple.com/us/app/tex-writer-latex-on-the-go/id552717222}}.
+
+\subsection{\faGlobe{~} Ich mags online}
+Man muss \LaTeX{} auch nicht installieren, was den Vorteil hat, dass dieser Weg auf jeder Plattform funktioniert, die es irgendwie ins Internet schafft. Nebst \url{https://latexbase.com/} und \url{https://latexonline.cc/} gilt es die bekanntesten (und mittlerweile fusionierten) zu erwähnen: \url{https://www.sharelatex.com/} und \url{https://www.overleaf.com/}.
+
+
+\section{Das Grundgerüst}
+
+% \subsection{Wie wo was \TeX?}
+
+% \LaTeX{} (\textbf{La}mport \TeX) ist eine Erweiterung des Textsatzsystems \TeX{} und ermöglicht es uns Dokumente (PDF, HTML, PS, \ldots) zu erzeugen, die wir in rein lesbarem Text unabhängig vom verwendeten Rechner tippen können.
+
+\subsection{Hello World}
+\cmdidx{documentclass}Jedes \LaTeX-Dokument besitzt grob den folgenden Aufbau:
+\begin{latex}
+\documentclass{:lan:Name der Dokumentklasse:ran:}
+
+:lan:Pakete und son' Gedöns:ran:
+
+\begin{document}
+
+:lan:Das Dokument:ran:
+
+\end{document}
+\end{latex}
+\textit{Hinweis: Texte in Spitzen Klammern ($\langle\cdots\rangle$) dienen einem Platzhalter und müssen in der Regel ersetzt werden. Es ist weiter bereits hier interessant zu wissen, das der Backslash eine Kontrollsequenz in Latex einleitet, die zum Beispiel die Textformatierung verändern kann.}
+\cmdidx{usepackage}Obwohl es für die Dokumentklasse eine Vielzahl an Optionen\footnote{\url{https://de.wikibooks.org/wiki/LaTeX-Wörterbuch:_documentclass}} gibt, werden wir uns in diesem Beispiel an die Klasse \T{article} halten. Pakete, die wir generell immer brauchen sind die folgenden:
+\begin{latex}
+\usepackage[T1]{fontenc} % Kodierung des Texts
+\usepackage[utf8]{inputenc} % Damit die Dateikodierung egal ist
+\usepackage[ngerman]{babel} % Wortrennungen und so
+\end{latex}
+
+Wie die farbliche Hervorhebung bereits vermuten lässt, startet das Prozentzeichen einen Kommentar in \LaTeX. Ein solcher dient lediglich zur Information für den/die Dokumentautor*in/ren und wird bei der Dokumenterstellung ignoriert. Dies ist, neben dem bereits bekannten Backslash (\T{\textbackslash}) der eine Kontrollsequenz einleitet eines der wenigen Zeichen die wir in \LaTeX{} nicht direkt verwenden können. Insgesamt sind alle folgenden Zeichen belegt:
+\begin{plainlatex}
+# :plaindollar: :percent: ^ & _ { } ~ \
+\end{plainlatex}
+Möchten wir nun zum Beispiel ein \blatex{&} schreiben, so müssen wir dies durch ein \T{\textbackslash}-\say{escapen}. Abgesehen vom Backslash selbst, können wir so alle reservierten Zeichen auch in \LaTeX{} setzen:
+\begin{plainlatex}
+\# \:plaindollar: \% \^{} \& \_ \{ \} \~{} \textbackslash{}
+\end{plainlatex}
+Dieses Prinzip sollte sich relativ schnell eingewöhnen lassen (zumal die meisten Editoren eine solche Ersetzung automatisch vornehmen oder zumindest davor warnen).
+
+\begin{bemerkung}[Und das soll ich jetzt immer kopieren?]
+    \elable{mrk:bemcompy}Nö. Es gibt hier eine hoffentlich von mir stets aktuell gehaltene Datei, die entsprechend ein Grundgerüst zum kopieren liefert: \url{https://gist.github.com/EagleoutIce/4a1333dee677dfb6b422a7f7e79b8fe6}.
+\end{bemerkung}
+
+Unser erstes Hello-World-Dokument generieren wir nun also wie folgt (die Kommentare lasse ich hier zur Übersicht weg, das \jmark[oben]{mrk:bemcompy} verlinkte Gist enthält Kommentare).
+\begin{latex}
+\documentclass{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+\usepackage[ngerman]{babel}
+
+\begin{document}
+Hallo Welt
+\end{document}
+\end{latex}
+
+\begin{bemerkung}[Leerfelder und -zeilen in \LaTeX]
+    \emph{Leerfelder} (dazu zählen hier auch mal Tabulatoren) kollabieren in \LaTeX{} stets zu einem Leerfeld. Ob wir nun also: \clatex[showspaces]{Hallo {} {} Welt} (die Leerfelder wurden hier markiert) oder \clatex[showspaces]{Hallo Welt} schreiben spielt keine Rolle. Für Leerzeilen gilt dasselbe. Wir können den Text in unserer \T{.tex}-Datei überall umbrechen soviel wir wollen, \LaTeX{} wird die Zeilenenden überlesen\footnote{Dies gilt nicht für Befehlssequenzen. Wir können also nicht inmitten eines Befehls wie \blatex[morekeywords={[5]{begin}}]{:bs:documentclass} eine neue Zeile starten, dies sollte aber logisch sein und wird vom Editor auch entsprechend farbliche markiert!}. \newline
+    \emph{Leerzeilen} folgen in \LaTeX{} einem ähnlichen Muster wie Leerzeichen. Ob wir nun \(1\), \(2\) oder \(300\) einfügen spielt in \LaTeX{} keine Rolle, da sie zu einer kollabieren und einen neuen \emph{Paragraphen} anführen. Wer das jetzt noch nie gehört hat, es handelt sich, vereinfacht, um den Start einer neuen Zeile die (zur besseren Übersicht im Fließtext) ein bisschen eingerückt ist.
+\end{bemerkung}
+
+\subsection{Die wichtigsten Formatierungsbefehle}
+\cmdidx{textbf}\cmdidx{textit}\cmdidx{textsc}Da wir im Text natürlich auch mal kursiv, fett oder farbig schreiben möchten, gibt es eine Reihe an Befehle, deren Namen alle mit einem \T{text} angeführt werden und dann von einem englischen Kurzbezeichner gefolgt werden. Im Folgenden ein Beispiel, wobei das entstehende Dokument rechts angezeigt wird:
+\begin{defaultlst}[][listing side text,righthand width=3cm, before lower={\vspace*{-0.75\baselineskip}}]{lLatex}
+\textbf{Hallo} \textit{Welt, na}
+\textsc{wie Geht es} dir denn?
+\end{defaultlst}
+\cmdidx[xcolor]{textcolor}Der letzte Befehl (\emph{small caps}) sorgt für Großbuchstaben, die allerdings auch als Kleinbuchstaben gesetzt werden können.
+Damit das Dokument kunterbunt werden kann, benötigen wir noch ein weiteres Paket namens \T{xcolor}, es erlaubt Text wie folgt farbig zu gestalten:
+\begin{defaultlst}[][listing side text,righthand width=3cm, before lower={\vspace*{-0.75\baselineskip}}]{lLatex}
+\textcolor{green}{Hallo} \textcolor{purple}{Welt, na}
+\end{defaultlst}
+Einige Farben werden vordefiniert, wie man sich eigene Erzeugen kann kommt (vermutlich) später.
+
+\subsection{Die wichtigsten Strukturierungsbefehle}
+Da ein Artikel für gewöhnliche weder Kapitel noch \say{Parts} besitzt, stehen die Befehle \blankcmd{chapter} und \blankcmd{part} in der \T{article}-Klasse \emph{nicht} zur Verfügung. Sie seien hier nur zur Vollständigkeit erwähnt. Es gibt allerdings genug andere Befehle mit denen wir unser Dokument strukturieren können. Die wichtigsten hiervon sind \blankcmd{section} und \blankcmd{subsection}, die es erlauben neue Abschnitte wie folgt zu setzen\footnote{Sofern ich es nicht explizit anders sage, gehören alle hier gezeigten Ausschnitte in die \blatex{document}-Umgebung.}:
+\begin{latex}
+\section{Ich bin eine Sektion}
+% Text...
+\subsection{Ich bin ein Unterabschnitt}
+% Text...
+\subsection{Ein weiterer Unterabschnitt!}
+% Text...
+\section{Ein weiterer Abschnitt}
+% Text...
+\end{latex}
+Sie werden automatisch korrekt durchnummeriert und erlauben es so wichtige Abschnitte zu Trennen. Eine Inhaltsübersicht erzeugen wir mittels\cmdidx{tableofcontents}
+\begin{latex*}
+\tableofcontents
+\end{latex*}
+\begin{bemerkung}[Hilfsdateien]
+    Hier ist es notwendig zu erwähnen, dass \LaTeX{} (streng genommen \TeX) die Datei beim kompilieren (also Text-zu-PDF) nur einmal von oben nach unten liest. Da wir die Inhaltsübersicht ja vermutlich am Beginn des Dokuments möchten hat \TeX{} noch gar nichts was er da reinschreiben könnte. Deswegen wird die Inhaltsübersicht beim ersten Lauf leer sein und erst beim zweiten gefüllt werden. Warum? Beim durchlaufen des Dokuments erzeugt \TeX{} sich eine Hilfsdatei (\T{.toc}), in der die Vorkommnisse von \blankcmd{section} usw. festgehalten werden und in der nächsten Runde neu eingelesen werden. Deswegen empfiehlt es sich das Dokument (zumindest vor der Abgabe \Winkey) zweimal zu kompilieren.
+\end{bemerkung}
+Es ist übrigens auch möglich die Abschnitte für die Inhaltsübersicht anders zu benennen. Wir setzen den gewünschten Text einfach in eckige Klammern. Möchten wir nicht, dass ein Abschnitt ins Inhaltsverzeichnis kommt, so fügen wir ein Sternchen an, was sie natürlich auch von der Nummerierung befreit: \ilatex{docs/example1/example1.tex}
+\begin{center}
+    \framebox{\tcbincludepdf[width=0.45\linewidth,blankest,graphics options={trim=0cm 0cm 0cm 0cm, clip}]{docs/example1/example1.pdf}}
+\end{center}Das Dokument wurde für die Anzeige nicht beschnitten, allerdings skaliert. Gut zu sehen ist, dass die Abstände vor allem zum Seitenrand entsprechend groß sind. Wir wenden uns nun also der Seitengestaltung zu:
+\subsection[Seitenlayout \& Dokumentstruktur]{Die Dimensionen der Seite}
+Mittels des Pakets \T{geometry} lassen sich die Seitenränder hervorragend modifizieren. Wir übergeben die gewünschten Einstellungen wieder in eckigen Klammern:
+\begin{latex*}
+\usepackage[left=20mm,right=20mm,top=15mm,bottom=10mm]{geometry}
+\end{latex*}
+Wir müssen nicht alle diese Optionen angeben und es gibt auch noch einige mehr die sich, in der tollen Dokumentation\footnote{\url{https://ctan.space-pro.be/tex-archive/macros/latex/contrib/geometry/geometry.pdf}} (oder auf Linux: \bbash{texdoc geometry}) nachlesen lassen. Übrigens: das ist eine Anweisung, die nicht in \blatex{document} gehört! Generell dürfen in \LaTeX{} Pakete nur außerhalb des Dokuments eingebunden werden!
+
+\begin{bemerkung}[Struktur eines \LaTeX-Dokuments]
+    Grob lässt sich ein jedes \LaTeX-Dokument in zwei Abschnitte aufteilen:\begin{ditemize}
+        \item Die \emph{Präambel}: Dies ist der Teil vor \clatex{\\begin\{document\}}. Hier wird die Dokumentklasse (mittels \blankcmd{documentclass}) festgelegt, es werden Pakete eingebunden (mittels \blankcmd{usepackage}), Makros konfiguriert und gegebenenfalls definiert und deklariert (kommt noch \Smiley).
+        \item Der \emph{Dokumentteil}: Dies ist der Abschnitt des Dokuments, den wir durch \blatex{document}-markieren. Hier dürfen keine Pakete mehr eingebunden werden, dafür können wir allerdings Text schreiben, der dann auch so ins Dokument übernommen wird!
+    \end{ditemize}
+\end{bemerkung}
+
+
+\section[Mathe]{Mathe, \(e^{\i\cdot\pi} = -1\)}
+
+\subsection{Einfache Formeln}
+
+Mathe kann in \LaTeX{} nicht einfach in den Text gesetzt werden. Alle folgenden Ausdrücke können wir entweder mit \clatex{:lmath: ... :rmath:} oder \clatex{:ldmath: ... :rdmath:} einrahmen. Ersteres wird den gewünschten Ausdruck wie normalen Text in die Zeile setzen: \clatex{:lmath:2:ws:+ 3:ws:= 4:rmath:} ergibt: \(2 + 3 = 4\), zweiteres wird den Ausdruck zentriert in einer sogenannten Display-Variante setzen (das Ergebnis ist in der Regel dasselbe allerdings können zum Beispiel Exponenten anders formatiert werden, da ja auch Vertikal mehr Platz genommen werden kann). So liefert \clatex{:ldmath:2:ws:+ 3:ws:= 4:rdmath:} in diesem Fall: \[2 + 3 = 4\] Die Abstände zwischen den Symbolen sind übrigens lediglich optischer Natur. In Mathe-Umgebungen werden standardmäßig \emph{alle} Leerfelder geschluckt und die Symbole mit vordefinierten Abständen gesetzt. Hierbei sind die meisten Formatierungsbefehle intuitiv: \begin{ditemize}\narrowitems
+    \item Einen \emph{Exponent} setzen wir durch das Hütchen (\blatex{^}), Indizes durch den Unterstrich (\blatex{_}). Möchten wir einen ganzen Block Formatieren so setzen wir ihn in geschwungene Klammern, die Reihenfolge ist unerheblich:
+    \begin{defaultlst}[][listing side text,righthand width=4cm, before lower={\vspace*{-0.75\baselineskip}}]{lLatex}
+\(a^1 + b^2 = c^2\) \\
+\(a^2 + b_{144} = c^2_4\) \\
+\(a_3 + b^i_{23} = c_{i_{42}}^{a^3}\)
+    \end{defaultlst}
+    Wie die letzte Zeile demonstriert, lassen sich diese Formatierungen auch beliebig tief verschachteln. Die hier jeweils angeführten doppelten Backslashes (\blatex{\\\\}) forcieren übrigens den Start einer neuen Zeile.
+    \item \emph{Griechische Symbole} existieren als gleichnamiger \LaTeX-Befehl und können somit gesetzt werden:
+    \begin{defaultlst}[][listing side text,righthand width=4cm, before lower={\vspace*{-0.75\baselineskip}}]{lLatex}
+\(e^{i * \pi} = -1\) \\
+\(12 * \lambda + \xi_\Omega\) \\
+\(\Psi - \Omega * \chi^\rho\)
+    \end{defaultlst}
+    Eine ausführliche Liste aller Symbole befindet sich im Anhang unter \jmark[Mathematische Symbole]{mrk:mathsym}.
+    \item \cmdidx{infty}\emph{Mathematische Operatoren} lassen sich in der Regel einfach durch ihren bekannten Kurzbezeichner setzen. Unendlich wird durch \blankcmd{infty}, ein (mathematischer) Pfeil durch \blankcmd{to} gekennzeichnet. Die folgende Gleichung dient als Beispiel, nicht als große Erleuchtung der Mathematik:
+    \begin{defaultlst}[][listing above text,righthand width=4cm, before lower={\textit{Ergibt:}}]{lLatex}
+\[ \sum_{i=0}^\infty \frac{4\pi_2}{12 \pm \sqrt{4-3-2-i}} =
+        \lim_{k \to \infty} \frac{\prod_{n=0}^k \sqrt{k}}{x} \]
+    \end{defaultlst}
+    \item \cmdidx{left}\cmdidx{right}\cmdidx{middle}\emph{Klammern}, und generell die meisten \say{Begrenzer}, lassen sich durch ein Anführen von \blankcmd{left} und \blankcmd{right} an die Höhe des eingeschlossenen Inhalts anpassen:
+    \begin{defaultlst}[][listing above text,righthand width=4cm, before lower={\textit{Ergibt:}}]{lLatex}
+\[ \forall_{x \in M} \exists! x : \left( \frac{2x}{42} \right) =
+         \left|\frac{(4x)}{5}\right| \]
+    \end{defaultlst}
+
+    Mit \blankcmd{middle} können so auch noch weitere Symbole innerhalb von \blatex{\\left} und \blatex{\\right} angepasst werden.
+    \item \cmdidx{mathcal}\cmdidx{mathbb}Um \emph{Mengen} oder andere Objekte zu dotieren existieren \blankcmd{mathbb} und \blankcmd{mathcal}. So ergibt \blatex{:lmath:\\mathbb\{N\}:rmath:}: \(\mathbb{N}\) und \blatex{:lmath:\\mathcal\{N\}:rmath:}: \(\mathcal{N}\).
+\end{ditemize}
+
+\subsection{Weitere wichtige und nützliche Befehle}
+% \textcolor{bondiBlue}{\textbackslash(} \textcolor{bondiBlue}{\textbackslash)}
+\def\CommandMathPreview#1{\T{\blankcmd{#1}} (\ensuremath{\csname#1\endcsname})}
+Erst einmal eine Ansammlung an Befehlen, die man vermutlich relativ oft brauchen wird (\textit{Hinweis, auch wenn sie benötigt werden, sind hier die Befehle für die Mathe-Umgebungen nicht aufgeführt}.): \typesetList[CommandMathPreview]{cdot,pm,sum,prod,to,infty,int,neq,mapsto,leq,geq}. Wie bereits aus den obigen Gleichungen ablesbar, ist es möglich mittels \blatex{\\frac\{:lan:Zähler:ran:\}\{:lan:Nenner:ran:\}} einen Bruch, mit \blatex{\\binom\{:lan:n:ran:\}\{:lan:k:ran:\}} einen Binomialkoeffizienten und mit \blatex{\\sqrt\{:lan:Mathe:ran:\}} eine Wurzel  zu setzen. Diese Befehle lassen sich beliebig verschachteln:
+\begin{sclatex}[][]
+\(\frac{n!}{k!(n-k)!} = \binom{n}{k}\) \\
+\(\sum_{i = 1}^n i =
+    \frac{n(n-1)}{2} \cdot \sqrt{1}\)
+\end{sclatex}
+Für Mengenoperationen gibt es ebenfalls einige nützliche Befehle:
+\typesetList[CommandMathPreview]{in,notin,subset,supset,subseteq,supseteq,setminus,times,emptyset,varnothing}. Betrachten wir auch hierzu ein kleines Beispiel:
+\begin{sclatex}[][]
+Sei \(x \in \mathbb{N}\) sowie
+    \(M \subseteq \mathbb{R}^+\).
+\end{sclatex}
+Übrigens, für komplexe Zahlen besteht \CommandMathPreview{Re} und \CommandMathPreview{Im}.\par{}
+Für Logik-Operationen haben wir für Junktoren die folgenden Befehle \typesetList[CommandMathPreview]{neg,implies,iff,land,lor} oder die Alternativen (ich mag diese teilweise mehr, primär augrund der Abstände \Smiley) \typesetList[CommandMathPreview]{leftarrow,Leftarrow,rightarrow,Rightarrow,leftrightarrow,leftrightarrow,nearrow} und für Quantoren: \typesetList[CommandMathPreview]{exists,nexists,forall}.\par{}
+Auch hierfür möchten wir natürlich ein Beispiel:
+\begin{sclatex}[][righthand width=5.5cm,before lower={\scriptsize}]
+\(\forall h \in \text{Hamster}
+  \exists m \in \text{Menschen}:
+  \text{mag}(m,h) \)
+\end{sclatex}
+
+Positive Abstände können wir mittels \blatex{\\,} sowie \blatex{\\:} und \T{\textbackslash;} definieren, negative Abstände durch \blatex{\\!}. Betrachten wir hierzu einmal ein weiteres Beispiel:
+\begin{sclatex}[][righthand width=5.5cm,before lower={\scriptsize}]
+\(\forall h \in \text{Hamster}\,
+  \exists m \in \text{Menschen}
+  \::\: \text{mag}(m,h) \)
+\end{sclatex}
+
+
+\subsection{Nützliche Umgebungen}
+
+Für die im Folgenden vorgestellten Umgebungen empfiehlt es sich, das Paket \T{amsmath} einzubinden (wer möchte kann auch \T{mathtools} verwenden). \cmdidx[amsmath]{text}Dieses liefert uns weiter den Befehl \blankcmd{text}, damit wir in Formeln auch normalen Text schreiben können:
+\begin{defaultlst}[][listing above text,righthand width=4cm, before lower={\textit{Ergibt:}}]{lLatex}
+\[ Hallo Welt \cdot \frac{\text{Hallo We} lt}{14\pi} \]
+\end{defaultlst}
+
+\index{align`\blatex{align}}\index{align*`\blatex{align*}}Weiter sinnvoll ist die Umgebung \blatex{align}, die es mittels des Und-Symbols (\blatex{&}) erlaubt Gleichungen horizontal zu mitteln. \textit{Übrigens: Eine Umgebung besitzt in Latex einen Namen (wie \blatex{align}), der den Befehlen \blankcmd{begin} und \blankcmd{end} übergeben werden muss. Diese Befehle begrenzen dann die jeweilige Umgebung.}Eine neue Zeile startet hierbei \blatex{\\\\}:
+    \begin{defaultlst}[][listing side text,righthand width=6.5cm, before lower={\vspace*{-0.75\baselineskip}}]{lLatex}
+\begin{align}
+    42 * 3 &= 21 * 6 \\
+    5 * 3 &= 1 \\
+    &= 42 \pi + 3 * 2 - 6
+\end{align}
+    \end{defaultlst}
+Die seitliche Nummerierung kann durch das Setzen eines Sternchens und somit dem Verwenden von \blatex{align*} unterdrückt werden.\par{}
+\index{pmatrix`\blatex{pmatrix}}\index{matrix`\blatex{matrix}}Eine Matrix können wir mittels \blatex{pmatrix} erzeugen. Möchten wir eine Matrix ohne Klammern (oder mit eigenen Klammern), so können wir komplett Analog mittels \blatex{matrix} eine Matrix ohne diese erzeugen.\par{}
+Innerhalb dieser Umgebung können wir mittels einem Und-Symbol (\&) Spalten und \blatex{\\} Zeilen trennen. Hilfreich sollt ein diesem Kontext das folgende Beispiel sein:
+\begin{sclatex}[][]
+\(\begin{pmatrix}
+    1 & 2 & 3 & 42 \\
+    219 & \cdots & 1 & 2 \\
+    x_1 & 3 & 3 & 7
+\end{pmatrix}\)
+\end{sclatex}
+\index{cases`\blatex{cases}}Möchten wir eine partiell definierte Funktion anzeigen, so empfiehlt sich \blatex{cases}, das an sich noch eine geschweifte Klammer auf der linken Seite hinzufügt:
+\begin{sclatex}[][righthand width=5.5cm,before lower={\scriptsize}]
+\(\min(x,y) = \begin{cases}
+    x, & \text{ falls } x < y, \\
+    y, & \text{ sonst.}
+\end{cases}\)
+\end{sclatex}
+Übrigens, interessante Umgebungen die es auch noch lohnt anzusehen sind: \typesetList[lstkwthree]{gather,gather*,alignat,alignat*,array,equation}.
+% TODO: erklärung, was ist eine Umgebung?
+% TODO: detexify
+
+\begin{bemerkung}[Aktueller Mathestand]
+    Glückwunsch, du hast den aktuellen Stand des Mathe-Ausblicks erreicht!
+\end{bemerkung}
+
+
+\section{Grafiken, Tabellen und Auflistungen}
+
+\subsection{Grafiken einbinden}
+
+\begin{minipage}{\linewidth-5cm}
+    \cmdidx[graphicx]{includegraphics}Im Folgenden verwenden wir das Paket \T{graphicx}, welches es uns ermöglicht PDFs, PNGs, JPGs und viele andere Grafikformate einzubinden und anzuzeigen. Vorrausgesetzt, wir haben rechts abgebildete Verzeichnisstruktur, können wir unser Bild wie folgt einsetzen:
+    \begin{latex*}
+\includegraphics{Images/example.png}
+    \end{latex*}
+\end{minipage}\hfill\begin{minipage}{4.65cm}
+    \begin{fancydir}
+        [Beispielverzeichnis
+            [meinetexdatei.tex, cfile={Purple}{\fontsize{4pt}{4pt}\selectfont\TeX}]
+            [Images
+                [
+                    example.png, cfile={AppleGreen}{\faImage}
+                ]
+            ]
+        ]
+    \end{fancydir}
+\end{minipage}\newline
+Da das Bild in der Regel viel zu groß/klein (auf jedenfall nicht richtig \Tongey) rüberkommt, können wir diesem Befehl wieder \emph{optionale} Parameter mittels den eckigen Klammern übergeben. So können wir es entweder auf eine gewünschte Breite (\T{width=XXcm}), höhe (\T{height=XXcm}) oder ein gewünschtes Seitenverhältnis (\T{width=XXcm,height=XXcm}) skalieren. Möchten wir, dass das Bild nicht verzerrt wird, so genügt die zusätzliche Angabe von \T{keepaspectratio}. So liefert:
+ \begin{defaultlst}[][listing outside text,righthand width=4cm, before lower={\vspace*{-0.75\baselineskip}}]{lLatex}
+\includegraphics[width=3.5cm]{Images/example.png}
+\end{defaultlst}
+
+\subsection{Grafiken betiteln und auflisten}
+
+\index{figure`\blatex{figure}}\cmdidx{caption}\cmdidx{listoffigures}Von Haus aus liefert uns \LaTeX{} die Umgebung \blatex{figure}, mit der wir Bilder einfach beschriften und auch (ähnlich zu \blankcmd{tableofcontents}) auflisten können. Mittels \blatex{\\caption} lassen sich die Bildunterschriften angeben:\newline
+\begin{minipage}{\linewidth-5cm}
+\begin{latex}
+\begin{figure}\centering
+    \includegraphics[width=3.5cm]{Images/example.png}
+    \caption{Ich, wer sonst?}
+\end{figure}
+\end{latex}
+\end{minipage}\hfill\begin{minipage}{5cm}
+    \begin{figure}[H]\centering
+        \includegraphics[width=3.5cm]{Images/example.png}
+        \caption{Ich, wer sonst?}
+    \end{figure}
+\end{minipage}\newline
+Das \blankcmd{centering} wurde hier angefügt, damit die Grafik zentriert über der Beschriftung angezeigt wird, ist allerdings optional. \blankcmd{caption} akzeptiert (wie \blankcmd{section}) ein optionales Argument in eckigen Klammern unter dem es dann in der zugehörigen Liste aufgeführt wird. Diese generieren wir durch \blankcmd{listoffigures}:\newline
+\begin{minipage}{\linewidth}
+    \listoffigures
+\end{minipage}
+
+\subsection{Schnelle Tabellen}
+
+\index{tabular`\blatex{tabular}}\cmdidx{hline}Tabellen werden über die Umgebung \blatex{tabular} erzeugt, wobei diese ein weiteres Argument benötigt: die Spalten, beziehungsweise genauer: die Ausrichtung der Spalten. Die wichtigsten hier sind \typesetList[T]{l,c,r,m,p}, wobei die ersten drei jeweils der links-bündigen \engl{left}, zentriertern \engl{center} und rechts-bündigen \engl{right} Spalte entsprechen, eine neue Zeile wird mit \blatex{\\\\} eingeleitet, Spalten werden durch \blatex{\&} getrennt:
+\begin{defaultlst}[][listing side text,righthand width=6.5cm, before lower={\vspace*{-0.75\baselineskip}}]{lLatex}
+\begin{tabular}{lrc}
+    Hallo & Welt & na \\
+    wie & geht & es dir denn? \\
+    Geht es dir & gut? & Frag ich mich \\
+    Ich brauch & nen neuen & Dummytext.
+\end{tabular}
+\end{defaultlst}
+Vertikale Linien können in den Spalten mit einem \T{|} (senkrechten Strich) angegeben werden, horizontale Linien werden mittels \blatex{\\hline} angegeben. Die Spalten \T{m} und \T{p} benötigen jeweils noch ein Argument über die Breite. Die \T{m}-Spalte wird vertikal gemittelt, die \T{p}-Spalte wird einfach oben gesetzt. Jetzt einmal alles zusammen:
+\begin{defaultlst}[][listing side text,righthand width=6.5cm, before lower={\vspace*{-0.75\baselineskip}}]{lLatex}
+\begin{tabular}{|r|p{1cm}||m{2cm}}
+    Hallo & Welt & na \\
+    \hline
+    wie & geht & es dir denn? \\
+    \hline \hline
+    Geht es dir & gut? & Frag ich mich \\
+    Ich brauch & nen neuen & Dummytext.\\
+    \hline
+\end{tabular}
+\end{defaultlst}
+\textit{Hinweis: Es mag hier vielleicht wirken, als würde die \T{m}-Spalte gar nicht mittig ausgerichtet werden, allerdings kontrolliert die längste Spalte die Orientierung, es empfiehlt sich also nur entweder \T{m} oder \T{p}-Spalten zu verwenden.}\newline
+\index{table`\blatex{table}}\cmdidx{listoftables}\textit{Übrigens: Analog zu \blatex{figure} existiert die Umgebung \blatex{table}, die ebenfalls mittles \blatex{\\caption} einen Untertitel und mittels \blankcmd{listoftables} eine Auflistung erlaubt.}
+
+\subsection{Hübsche Tabellen}
+
+\begin{bemerkung}[Aktueller Tabellenstand]
+    Glückwunsch, du hast den aktuellen Stand des Tabellen-Ausblicks erreicht! Ich empfehle das Paket \T{booktabs}\footnote{\url{https://www.ctan.org/pkg/booktabs/}} für die weitere Erkundungsreise. Interessiert man sich für Tabellen, die über mehrere Seiten gehen, so gilt es \T{longtable}\footnote{\url{https://www.ctan.org/pkg/longtable}} zu bestaunen \Smiley.
+\end{bemerkung}
+
+\subsection{Auflistungen}
+
+\cmdidx{item}Man kennt sie, sie sind fast überall: Listen (Schreckens-Musik-Einspieler \Laughey). \LaTeX{} unterscheidet drei Arten von Listen (die ich hier innerhalb einer beschrifteten Liste vorstelle):
+\begin{description}\narrowitems
+    \item[Unsortierte Listen:] \index{itemize`\blatex{itemize}}Diese erzeugen wir mittels der \blatex{itemize}-Umgebung:
+    \begin{defaultlst}[][listing side text,righthand width=6.5cm, before lower={\vspace*{-0.75\baselineskip}}]{lLatex}
+\begin{itemize}
+  \item Ich bin ein Punkt
+  \item Ich bin auch ein Punkt
+  \item Ich bin eine Biene
+\end{itemize}
+\end{defaultlst}
+    \item[Sortierte Listen:] \index{enumerate`\blatex{enumerate}}Diese funktionieren im Prinzip analog zu \blatex{itemize}, allerdings werden diese durchnummeriert:
+        \begin{defaultlst}[][listing side text,righthand width=6.5cm, before lower={\vspace*{-0.75\baselineskip}}]{lLatex}
+\begin{enumerate}
+  \item Ich bin ein Punkt
+  \item Ich bin auch ein Punkt
+  \item Ich bin eine Biene
+\end{enumerate}
+\end{defaultlst}
+    \item[Beschriftete Liste] \index{description`\blatex{description}}Hier Kann bei jedem Element mittels Eckigen Klammern noch der Bezeichner für den Punkt übergeben werden (\textit{Genau genommen kann dies bei jeder Liste gemacht werden, aber naja, es gibt nur selten Grund dazu}):
+    \begin{defaultlst}[][listing side text,righthand width=6.5cm, before lower={\vspace*{-0.75\baselineskip}}]{lLatex}
+\begin{description}
+  \item[Punkt A] Ich bin ein Punkt
+  \item[B] Ich bin auch ein Punkt
+  \item[Die Biene] Ich bin eine Biene
+\end{description}
+\end{defaultlst}
+\end{description}
+Alle diese Listen vollführen automatisch Zeilen- und Seitenumbrüche sowie Einrückungen. Möchte man zum Beispiel die Gestalt der Enumerierung von \blatex{enumerate} so empfiehlt sich das Paket \T{enumitem}\footnote{https://www.ctan.org/pkg/enumitem}, mit diesem ist zum Beispiel folgendes möglich:\newline
+\begin{defaultlst}[][listing side text,righthand width=6.5cm, before lower={\vspace*{-0.75\baselineskip}}]{lLatex}
+\begin{enumerate}[label=\alph*)]
+  \item Ich bin ein Punkt
+  \item Ich bin auch ein Punkt
+  \item Ich bin eine Biene
+\end{enumerate}
+    \end{defaultlst}
+
+\section{Source- und Pseudocode}
+\subsection{Java-Code}
+\index{lstlisting`\blatex{lstlisting}\textsuperscript{(Paket: \T{listing})}}\cmdidx[listings]{lstinline}\cmdidx[listings]{lstinputlisting}Zur farblichen Hervorhebung von Quellcode eignet sich das Paket \T{listings}, welches nebst der Umgebung \blatex{lstlisting} noch Befehle wie \blatex{\\lstinline} und \blatex{\\lstinputlisting} hinzufügt. Standardmäßig sind Umlaute ein Problem, dem werden wir uns allerdings auch noch annehmen:\medskip\\
+\begin{minipage}{0.5\linewidth}
+\begin{latex}
+\begin{lstlisting}
+Ich bin Pseudocode
+Ist das nicht wunderbar?
+Zuuuug zuuuug.
+\end{lstlisting}
+\end{latex}
+\end{minipage}\hfill\begin{minipage}{0.425\linewidth}\vspace*{-\baselineskip}
+\begin{plainvoid}[style=]
+Ich bin Pseudocode
+Ist das nicht wunderbar?
+Zuuuug zuuuug.
+\end{plainvoid}
+\end{minipage}\newline
+Eine Sprache hinzuzufügen ist denkbar einfach, wir können der Umgebung in eckigen Klammern Argumente übergeben, wie zum Beispiel:\medskip\\
+\begin{minipage}{0.5\linewidth}
+\begin{latex}
+\begin{lstlisting}[language=java]
+public static void
+        main(String[] args){
+    System.out.println("Hi");
+}
+\end{lstlisting}
+\end{latex}
+\end{minipage}\hfill\begin{minipage}{0.425\linewidth}\vspace*{-\baselineskip}
+\begin{plainvoid}[language=java,style=]
+public static void
+        main(String[] args){
+    System.out.println("Hi");
+}
+\end{plainvoid}
+\end{minipage}\newline
+Vermutlich wird das Highlighting nicht farbig sein\footnote{Es ist nur immer so aufwändig alle meine Einstellungen für Source-Code über den Haufen zu werfen.}, wir werden uns diesem aber gleich annehmen. Zuerst allerdings noch, wie wir Zeilennummern hinzufügen:
+\medskip\\
+\begin{minipage}{0.5\linewidth}
+\begin{latex}
+\begin{lstlisting}[language=java,numbers=left]
+public static void
+        main(String[] args){
+    System.out.println("Hi");
+}
+\end{lstlisting}
+\end{latex}
+\end{minipage}\hfill\begin{minipage}{0.425\linewidth}\vspace*{-\baselineskip}
+\begin{plainvoid}[language=java,numbers=left,style=,numberstyle=]
+public static void
+        main(String[] args){
+    System.out.println("Hi");
+}
+\end{plainvoid}
+\end{minipage}\newline
+\begin{bemerkung}[Die inline und input-Variante]
+Da wir im Folgenden im wesentlichen nur an den Argumenten arbeiten,die wir der Umgebung übergeben, gilt zu beachten, dass auch \blatex{\\lstinline} und \blatex{\\lstinputlisting} diese Argumente übernehmen. Ersterer Befehl funktioniert analog zu \blatex{\\verb}, so können wir zum Beispiel Schreiben:\medskip\\
+\begin{minipage}{0.5\linewidth}
+\begin{latex*}
+Verwenden wir hier
+\lstinline[language=java]|int crop|
+anstelle von \lstinline|String crop|, ...
+\end{latex*}
+\end{minipage}\hfill\begin{minipage}{0.425\linewidth}\vspace*{-\baselineskip}
+Verwenden wir hier \lstinline[language=java,style=]|int crop| anstelle von \lstinline[style=,language=lVoid]|String crop|, ...
+\end{minipage}\newline
+\blatex{\\lstinputlisting} erwartet anstelle von Code den Pfad zu einer Quellcodedatei an.
+\end{bemerkung}
+\cmdidx{lstdefinestyle}Natürlich sind wir hochindividuell, und möchte, dass der Code genau so markiert wird, wie wir dies wünschen. Hierfür schreiben wir einfach folgendes in der Präambel/vor der Benutzung\footnote{Information: Es sollte keine Leerzeile in diesen Befehl eingefügt werden! Der Befehl ist simpel definiert und erlaubt keine Paragraphen innerhalb des Arguments. Analoges gilt für \blatex{\\lstdefinelanguage}.}:
+\begin{latex}
+\lstdefinestyle{MeinStil}{
+    breaklines      = true, % erlaube Zeilenumbrüche
+    % backgroundcolor = \color{yellow!15},
+    % rulecolor       = \color{green!15},
+    stringstyle     = \color{teal}, % Zeichenketten in Teal
+    keywordstyle    = \color{orange}, % Keywords in Orange
+    keywordstyle    = [2]\itshape, % Secondary Keywords in kursiv
+    basicstyle      = \ttfamily, % Schreibmaschinenschrift
+    commentstyle    = \color{gray}\itshape, % Kommentare in grau und kursiv
+    extendedchars   = true,
+    numberstyle     = \scriptsize, % Kleine Nummerierung
+    % frame           = single,  % wenn rahmen gewünscht
+    numbers         = left, % wir wollen immer Zeilennumern
+    numbersep       = 7pt % Diese sollen weiter sein
+}
+\end{latex}
+\lstdefinestyle{MeinStil}{
+    breaklines      = true, % erlaube Zeilenumbrüche
+    % backgroundcolor = \color{yellow!15},
+    % rulecolor       = \color{green!15},
+    stringstyle     = \color{teal}, % Zeichenketten in Teal
+    keywordstyle    = \color{orange}\bfseries, % Keywords fett in Orange
+    keywordstyle    = [2]\itshape, % Secondary Keywords in kursiv
+    basicstyle      = \ttfamily, % Schreibmaschinenschrift
+    commentstyle    = \color{gray}\itshape, % Kommentare in grau und kursiv
+    extendedchars   = true,
+    numberstyle     = \scriptsize, % Kleine Nummerierung
+    % frame           = single,  % wenn rahmen gewünscht
+    numbers         = left, % wir wollen immer Zeilennumern
+    numbersep       = 7pt % Diese sollen weiter sein
+}
+% TODO: Anmerken, dass leerzeilen nicht erlaubt sind, und warum (\long-Definition)
+Nun können wir den Stil verwenden (hier wird \T{xcolor} ebenfalls benötigt, für die Farben):\medskip\\
+\begin{minipage}{0.5\linewidth}
+\begin{latex}
+\begin{lstlisting}[language=java,style=MeinStil]
+public static void
+        main(String[] args){
+    System.out.println("Hi");
+}
+\end{lstlisting}
+\end{latex}
+\end{minipage}\hfill\begin{minipage}{0.425\linewidth}\vspace*{-\baselineskip}
+\begin{plainvoid}[language=java,style=MeinStil]
+public static void
+        main(String[] args){
+    System.out.println("Hi");
+}
+\end{plainvoid}
+\end{minipage}\newline
+\cmdidx{lstdefinelanguage}Aber halt, String wird ja zum Beispiel gar nicht farblich markiert, und das ist so besonders wichtig. Wir wollen nun also die Sprache \T{java} erweitern:
+\begin{latex}
+\lstdefinelanguage{MeinJava}{
+    language=java, % Nutze implizit Java
+    alsoletter={@_}, % Methoden/Interfaces können diese Zeichen enthalten
+    comment=[l]{//}, % Ein Zeilenkommentar beginnt mit '//'
+    morecomment=[s]{/*}{*/}, % Mehrzeiliger Kommenta
+    keywordsprefix={@}, % Für interfaces
+    morekeywords={String, var}, % Markiere farblich
+    morekeywords=[2]{System} % Markiere kursiv
+}
+\end{latex}
+\lstdefinelanguage{MeinJava}{
+    language=java, % Nutze implizit Java
+    alsoletter={@_}, % Methoden/Interfaces können diese Zeichen enthalten
+    comment=[l]{//}, % Ein Zeilenkommentar beginnt mit '//'
+    morecomment=[s]{/*}{*/}, % Mehrzeiliger Kommenta
+    keywordsprefix={@}, % Für interfaces
+    morekeywords={String, var}, % Markiere farblich
+    morekeywords=[2]{System} % Markiere kursiv
+}
+Wir können die Sprache nun ebenfalls nutzen:\medskip\\
+\begin{minipage}{0.5\linewidth}
+\begin{latex}
+\begin{lstlisting}[language=MeinJava,style=MeinStil]
+public static void
+        main(String[] args){
+    System.out.println("Hi");
+}
+\end{lstlisting}
+\end{latex}
+\end{minipage}\hfill\begin{minipage}{0.425\linewidth}\vspace*{-\baselineskip}
+\begin{plainvoid}[language=MeinJava,style=MeinStil]
+public static void
+        main(String[] args){
+    System.out.println("Hi");
+}
+\end{plainvoid}
+\end{minipage}\newline
+\cmdidx[listings]{lstset}Jetzt ist es noch lästig, jedesmal Sprache und Stil anzugeben, wir rufen also \blatex{\\lstset} auf und setzen damit die Standardargumente für unsere Umgebungen:
+\begin{latex*}
+\lstset{language=MeinJava,style=MeinStil}
+\end{latex*}
+Damit genügt nun:\medskip\newline
+{
+\begin{minipage}{0.5\linewidth}
+\begin{latex}
+\begin{lstlisting}
+public static void
+        main(String[] args){
+    System.out.println("Hi");
+}
+\end{lstlisting}
+\end{latex}
+\end{minipage}\hfill\begin{minipage}{0.425\linewidth}\vspace*{-\baselineskip}
+\begin{plainvoid}[language=MeinJava,style=MeinStil]
+public static void
+        main(String[] args){
+    System.out.println("Hi");
+}
+\end{plainvoid}
+\end{minipage}\newline
+}
+
+Ein Problem haben wir noch: Umlaute, deswegen verwenden wir \emph{literate}s, dabei handelt es sich um Ersetzungsregeln: Wenn der Befehl ein solches Symbol liest, ersetzt er es durch ein entsprechend anderes. Hier setze ich exemplarisch auch noch ein weiteres replacement, damit man sieht wie man diese erweitern muss:
+\begin{latex}
+\lstset{
+    literate={á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+    {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+    {à}{{\`a}}1 {è}{{\`e}}1 {ì}{{\`i}}1 {ò}{{\`o}}1 {ù}{{\`u}}1
+    {À}{{\`A}}1 {È}{{\'E}}1 {Ì}{{\`I}}1 {Ò}{{\`O}}1 {Ù}{{\`U}}1
+    {ä}{{\"a}}1 {ë}{{\"e}}1 {ï}{{\"i}}1 {ö}{{\"o}}1 {ü}{{\"u}}1
+    {Ä}{{\"A}}1 {Ë}{{\"E}}1 {Ï}{{\"I}}1 {Ö}{{\"O}}1 {Ü}{{\"U}}1
+    {â}{{\^a}}1 {ê}{{\^e}}1 {î}{{\^i}}1 {ô}{{\^o}}1 {û}{{\^u}}1
+    {Â}{{\^A}}1 {Ê}{{\^E}}1 {Î}{{\^I}}1 {Ô}{{\^O}}1 {Û}{{\^U}}1
+    {œ}{{\oe}}1 {Œ}{{\OE}}1 {æ}{{\ae}}1 {Æ}{{\AE}}1 {ß}{{\ss}}1
+    {ű}{{\H{u}}}1 {Ű}{{\H{U}}}1 {ő}{{\H{o}}}1 {Ő}{{\H{O}}}1
+    {ç}{{\c c}}1 {Ç}{{\c C}}1 {ø}{{\o}}1 {å}{{\r a}}1 {Å}{{\r A}}1
+    {€}{{\euro}}1 {£}{{\pounds}}1 {«}{{\guillemotleft}}1
+    {»}{{\guillemotright}}1 {ñ}{{\~n}}1 {Ñ}{{\~N}}1 {¿}{{?`}}1
+    % Hier noch das Beispiel:
+    {:gets:}{{\( \gets \)}}1
+}
+\end{latex}
+Die $1$ steht übrigens jeweils dafür, dass nur ein Zeichen entsteht. Dies lässt sich nun einfach kopieren und verwenden, beziehungsweise, wo wir schon beim kopieren sind, der Beispielcode für das Dokument befindet sich hier: \url{https://gist.github.com/EagleoutIce/1490bfd4d71eef73b032670921eab69a}.
+
+\subsection{Pseudocode}
+%\index{algorithm`\blatex{algorithm}}
+Zum Schreiben von Pseudocode gibt es das Paket \T{algorithm2e}, welches die Umgebung \blatex{algorithm} liefert, innerhalb der wir eine Reihe von Befehlen an die Hand bekommen.\par{}
+Innerhalb der Umgebung, können wir einfach drauf los schreiben\footnote{Für weitere Informationen wie man dieses Paket optisch einrichtet bitte einfach in die Dokumentation sehen \Smiley.}. Wichtig ist allerdings: wir sollten einen Algorithmus stets mittels \blatex{\\caption} benennen (das ist nicht wirklich nötig, empfiehlt sich allerdings \Smiley)
+\begin{latex}
+\begin{algorithm}
+    Hallo Welt
+    \caption{Der Titel}
+\end{algorithm}
+\end{latex}
+\textit{Ergibt:}\\
+\begin{algorithm}{Der Titel}
+    \StartCode
+    Hallo Welt
+\end{algorithm}
+\cmdidx[algorithm2e]{KwIn}\cmdidx[algorithm2e]{KwData}\cmdidx[algorithm2e]{KwOut}\cmdidx[algorithm2e]{KwResult}Wir haben hier die Befehle \blatex{\\KwIn} beziehungsweise \blatex{\\KwData} und \blatex{\\KwOut} oder \blatex{\\KwResult} für die Deklaration der Ein- und Ausgabe für den Algorithmus:
+\begin{latex}
+\begin{algorithm}
+    \KwIn{Eine epische Eingabe}
+    \KwOut{Eine unglaubliche Ausgabe}
+    Hallo Welt
+    \caption{Der Titel}
+\end{algorithm}
+\end{latex}
+\textit{Ergibt:}\\
+\begin{algorithm}{Der Titel}
+    \KwIn{Eine epische Eingabe}
+    \KwOut{Eine unglaubliche Ausgabe}
+    \StartCode
+    Hallo Welt
+\end{algorithm}
+\cmdidx[algorithm2e]{For}\cmdidx[algorithm2e]{While}Schleifen können wir mit \blatex{\\For\{:lan:Bedingung:ran:\}\{:lan:Rumpf:ran:\}} und \blatex{\\While\{:lan:Bedingung:ran:\}\{:lan:Rumpf:ran:\}} erzeugen. Hier das Beispiel mit \blatex{\\For}:
+\begin{latex}
+\begin{algorithm}
+    \KwIn{Eine epische Eingabe}
+    \KwOut{Eine unglaubliche Ausgabe}
+    Hallo Welt
+    \For{i = 0 \KwTo 42}{
+        Füttere die Katze
+    }
+    \caption{Der Titel}
+\end{algorithm}
+\end{latex}
+\textit{Ergibt:}\\
+\begin{algorithm}{Der Titel}
+    \KwIn{Eine epische Eingabe}
+    \KwOut{Eine unglaubliche Ausgabe}
+    \StartCode
+    Hallo Welt
+    \For{i = 0 \KwTo 42}{
+        Füttere die Katze
+    }
+\end{algorithm}
+Hm doof, jetzt hat er die For-Schleife in der gleichen Zeile begonnen wie auch das Hallo Welt. Dies liegt daran, dass ein Zeilen-Ende eigentlich mit \blatex{\\;} gekennzeichnet werden muss. \cmdidx[algorithm2e]{If}\cmdidx[algorithm2e]{Else}\cmdidx[algorithm2e]{eIf}Verbinden wir dies nun noch mit dem Wissen, dass es \blatex{\\If\{:lan:Bedingung:ran\}\{:lan:Wahr-Rumpf:ran:\}},\blatex{\\Else\{:lan:Falsch-Rumpf:ran:\}} sowie \blatex{\\eIf\{:lan:Bedingung:ran\}\{:lan:Wahr-Rumpf:ran:\}\{:lan:Falsch-Rumpf:ran:\}} gibt und wir haben die Möglichkeit schon ganz tolle Algorithmen zu setzen.:
+\begin{latex}
+\begin{algorithm}
+    \KwIn{Eingabe als Liste von \(n\) Zahlen: \(a_1, \ldots, a_n\)}
+    \KwData{Eine Definition die es so gibt}
+    \KwResult{Ein Ergebnis}
+    \For{i = 1 \KwTo n}{
+        \(gefunden \gets\) falsch\;
+        \(j \gets i\)\;
+        \While{\(j < n\)}{
+            \If{\(a_j > a_i\)}{
+                 \(gefunden \gets\) wahr\;
+                 break\;
+            }
+            \(j \gets j+1\)\;
+        }
+         \leIf{gefunden}{
+             Gebe aus: ja
+        }{
+             Gebe aus: nein
+        }
+    }
+    \caption{Ich bin der Titel}
+\end{algorithm}
+\end{latex}
+\textit{Ergibt:}\\
+\begin{algorithm}{Ich bin der Titel}
+    \KwIn{Eingabe als Liste von \(n\) Zahlen: \(a_1, \ldots, a_n\)}
+    \KwData{Eine Definition die es so gibt}
+    \KwResult{Ein Ergebnis}
+    \StartCode
+    \For{i = 1 \KwTo n}{
+        \(gefunden \gets\) falsch\;
+        \(j\gets i\)\;
+        \While{\(j < n\)}{
+            {\If{\(a_j > a_i\)}{
+                 \(gefunden \gets\) wahr\;
+                 break\;
+            }}
+            \(j \gets j+1\)\;
+        }
+         \leIf{gefunden}{
+             Gebe aus: ja
+        }{
+             Gebe aus: nein
+        }
+    }
+\end{algorithm}
+\cmdidx[algorithm2e]{lIf}\textit{Information: wir können vor zum Beispiel \blatex{\\If} noch ein \T{l} packen (also \blatex{\\lIf}, damit das If in nur einer Zeile gesetzt wird.)}\par{}
+
+\cmdidx[algorithm2e]{tcc}\cmdidx[algorithm2e]{tcp}Zuletzt wollen wir uns noch kurz ansehen wie Kommentare funktionieren. Hier haben wir zwei Befehle: \blatex{\\tcc} (C-Stil) und \blatex{\\tcp} (C++-Stil) die uns Kommentare setzen:
+\begin{latex}
+\begin{algorithm}
+    \KwIn{Eine epische Eingabe}
+    \KwOut{Eine unglaubliche Ausgabe}
+    \tcc{Kommentar}
+    \For{i = 0 \KwTo 42}{
+        Füttere die Katze
+    }
+    \tcp{Epischer Kommentar}
+    \caption{Der Titel}
+\end{algorithm}
+\end{latex}
+\textit{Ergibt:}\\
+\begin{algorithm}{Der Titel}
+    \KwIn{Eine epische Eingabe}
+    \KwOut{Eine unglaubliche Ausgabe}
+    \StartCode
+    \tcc{Kommentar}
+    \For{i = 0 \KwTo 42}{
+        Füttere die Katze
+    }
+    \tcp{Epischer Kommentar}
+\end{algorithm}
+
+Diese können wir auch mittels einiger Modifikationen (wieder: konsultiert für genaueres die Dokumentation) in der gleichen Zeile wie Bedingungen/Schleifen etc. setzen. Hierzu schreiben wir sie in runde Klammern nach dem Befehl:
+\begin{latex}
+\begin{algorithm}
+    \KwIn{Eine epische Eingabe}
+    \KwOut{Eine unglaubliche Ausgabe}
+    \For(\tcp*[h]{Epischer Kommentar}){i = 0 \KwTo 42}{
+        Füttere die Katze
+    }
+    \caption{Der Titel}
+\end{algorithm}
+\end{latex}
+\textit{Ergibt:}\\
+\begin{algorithm}{Der Titel}
+    \KwIn{Eine epische Eingabe}
+    \KwOut{Eine unglaubliche Ausgabe}
+    \StartCode
+    \For(\tcp*[h]{Epischer Kommentar}){i = 0 \KwTo 42}{
+        Füttere die Katze
+    }
+\end{algorithm}
+
+\clearpage\appendix
+
+% #1 the main scope (Mathematische Symbole)
+% #2 the subscope (Griechische Variablen)
+% #3 the list of symbols to be displayed.
+\long\def\ProduceMathList#1#2#3{%
+    \index{#1}\index{#1!#2}%
+    {\footnotesize\begin{multicols}{4}
+        \begin{ditemize}\narrowitems
+            \foreach \csn in {#3} {
+                \item \cmdsidx{\csn}{#1!#2!}\lstshowcmd[language=lLatex,morekeywords={[5]{\csn}}]{:lmath::bs:\csn:rmath:} (\ensuremath{\csname\csn\endcsname})
+            }
+        \end{ditemize}
+    \end{multicols}
+    }
+}
+
+\section{Tabellen und Listen}
+Die folgenden Tabellen und Listen stellen \emph{lediglich einen Ausschnitt} und somit \emph{nicht} alle verfügbaren Symbole dar. Weiter ist es durchaus möglich, dass die gezeigten Beispielsymbole, abhängig von der Schriftart und weiteren Konfigurationen in ihrer Gestalt abweichen können!
+\subsection{Mathematische Symbole}\elable{mrk:mathsym}
+\paragraph{Griechische Variablen:}
+\ProduceMathList{Mathematische Symbole}{Griechische Variablen}{alpha,beta,Gamma,gamma,Delta,delta,epsilon,zeta,eta,Theta,theta,vartheta,iota,kappa,varkappa,Lambda,lambda,mu,nu,Xi,xi,Pi,pi,varpi,rho,varrho,Sigma,sigma,varsigma,tau,Upsilon,upsilon,Phi,phi,chi,Psi,psi,Omega,omega}
+
+\paragraph{Mathematische Operatoren \textsuperscript{(Paket: \T{amsmath})}:}
+\ProduceMathList{Mathematische Symbole}{Mathematische Operatoren}{leq,geq,prec,succ,doteq,sim,simeq,approx,ll,gg,lll,ggg,propto,neq,subset,supset,subseteq,supseteq,parallel,in,ni,notin,times,pm,cdot,vee,wedge,cap,cup,exists,nexists,forall,lor,land,top,bot,neg,to,mapsto,gets,implies,iff,emptyset,lceil,rceil,lfloor,rfloor,int,Re,Im,aleph,sin,cos,tan,nabla}
+
+\clearpage
+\section{wie Bonus}
+
+\subsection{Übungsblätter gestalten}
+
+\textit{Der folgende Abschnitt hat nicht zum Ziel ein umwerfend-pittoresk im Licht der Schönheit strahlendes Übungsblatt zu entwerfen. Ich habe eine neue Umgebung und eine neue Liste für das Dokument erstellt, die ich hier leider nur teilweise erklären kann (Grundlagendokument und so), bei Fragen einfach melden.}\newline
+
+Wir beginnen, indem ich den gesamten Code für drei Aufgaben zeige und diesen dann aufdrösele, der komplette Code (also ein kompilierfähiges Dokument, findet sich hier: \url{https://gist.github.com/EagleoutIce/b7992a3a613a8b445cd92c31d664addf})
+
+\begin{latex}
+\title{Übungsblatt 42}
+\author{Ente eins \\ \texttt{ente.eins@uni-ulm.de} \and
+        Ente zwei \\ \texttt{ente.zwei@uni-ulm.de}}
+\date{01.02.4242}
+
+\maketitle
+
+\begin{aufgabe}{Tanze mit den Sternen}
+    \begin{aufgaben}
+        \item Hier haben wir mit den Sternen Händchen gehalten
+        \item Gibt es noch Brot? Hallo?
+    \end{aufgaben}
+\end{aufgabe}
+
+\begin{aufgabe}[4.5 Punkte]{Eine Ente kommt selten allein}
+    Diese Aufgabe war sehr schwierig, zuerst haben wir gerechnet:
+    \(42 \cdot 3^{e + \sin(x)}\), dann geweint und schließlich die
+    Lösung gefunden: 42 Quacks.
+\end{aufgabe}
+
+\begin{aufgabe}{}
+    Ahnungsloses Quack.
+\end{aufgabe}
+\end{latex}
+
+\cmdidx{title}\cmdidx{author}\cmdidx{date}\cmdidx{maketitle}Mittels \blankcmd{title}, \blankcmd{author} und \blankcmd{date} setzten wir die Daten für \blankcmd{maketitle}. Sie kännen eigentlich so ersetzt werden, was sie tun sollte intuitiv klar sein \Smiley.\smallskip\newline
+\index{aufgabe`\blatex{aufgabe}\textsuperscript{(Übungsblatt-template)}}\index{aufgaben`\blatex{aufgaben}\textsuperscript{(Übungsblatt-template)}}Es gibt zwei weitere Umgebungen zu entdecken: \blatex{aufgabe} und \blatex{aufgaben}. Erstere notiert eine neue Aufgabe, wobei diese automatisch durchnummeriert wird. In geschwungene Klammern dahinter gilt es den Titel zu setzen, man kann auch nichts eintragen, in diesem Fall wird auch kein Doppelpunkt gesetzt. Als optionales Argument kann in eckigen Klammern die Punktzahl übergeben werden (\textit{siehe: \blatex{\\begin\{aufgabe\}[4.5:ws:Punkte]\{Eine Ente:ldots:\}}}).\smallskip\newline
+Innerhalb der \blatex{aufgabe}-Umgebung kann man dann mittels \blatex{aufgaben} analog zu \blatex{enumerate} seine Teilaufgaben notieren (\textit{siehe: Tanze mit den Sternen}).
+
+Das Ergebnis sieht wie folgt aus (beschnitten):
+\begin{center}
+    \framebox{\tcbincludepdf[width=0.5\linewidth,blankest,graphics options={trim=0cm 12cm 0cm 0cm, clip}]{docs/uebungsblatt/uebungsblatt.pdf}}
+\end{center}
+
+\textit{Hinweis: Der folgende Teil ist nur dann interessant, wenn man sich dafür interssiert wie \blatex{aufgabe} und \blatex{aufgaben} implementiert wurde.}
+Hier arbeiten noch die engagierten, eloquenten Enten \tduck.
+
+\printindex
+
+\end{document}

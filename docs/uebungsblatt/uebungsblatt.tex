@@ -1,0 +1,67 @@
+\documentclass{article} % Wir schreiben ein Übungsblatt
+
+\usepackage[T1]{fontenc} % Kodierung des Texts
+\usepackage[utf8]{inputenc} % Damit die Dateikodierung egal ist
+
+\usepackage[ngerman]{babel} % ngerman = new german = neue deutsche Rechtschreibung. Wortrennungen und so
+
+\usepackage{lmodern} % Schriftdarstellung in PDF verbessert
+\usepackage{microtype} % Ausgeglichener Grauwert
+
+\usepackage{amsmath} % Mathe gekrarmse
+\usepackage{enumitem} % Modifikation der enumerate-Umgebung
+
+% schönere Seitenränder:
+\usepackage[margin=2cm,a4paper]{geometry}
+
+
+\newcounter{taskctr}
+
+% #1 Name
+% #2 Punkte
+\newenvironment{aufgabe}[2][]{\refstepcounter{taskctr}\bgroup%
+\leavevmode\newline\noindent\textbf{Aufgabe~\thetaskctr}\ifx\\#2\\\else:~#2\fi%
+\ifx\\#1\\\else\hfill\textit{(#1)}\fi\smallskip\par\noindent\ignorespaces%
+}{\egroup\bigskip}
+
+\newlist{aufgaben}{enumerate}{1}
+\setlist[aufgaben]{label=\textit{\alph*)},topsep=0pt}
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+
+
+
+
+
+% Damit beginnt das Dokument:
+\begin{document}
+
+\title{Übungsblatt 42}
+\author{Ente eins\\\texttt{ente.eins@uni-ulm.de} \and
+        Ente zwei\\\texttt{ente.zwei@uni-ulm.de}}
+\date{01.02.4242}
+
+\maketitle
+
+\begin{aufgabe}{Tanze mit den Sternen}
+    \begin{aufgaben}
+        \item Hier haben wir mit den Sternen Händchen gehalten
+        \item Gibt es noch Brot? Hallo?
+    \end{aufgaben}
+\end{aufgabe}
+
+\begin{aufgabe}[4.5 Punkte]{Eine Ente kommt selten allein}
+    Diese Aufgabe war sehr schwierig, zuerst haben wir gerechnet: \(42 \cdot 3^{e + \sin(x)}\), dann geweint und schließlich die Lösung gefunden: 42 Quacks.
+\end{aufgabe}
+
+\begin{aufgabe}{}
+    Ahnungsloses Quack.
+\end{aufgabe}
+
+\end{document}
+% Und hier isses dann auch schon vorbei.
