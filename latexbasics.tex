@@ -1,25 +1,17 @@
-\def\LILLYxCOLORxEXTENSION{PURPLE}
-\documentclass[PnP-Guide,garamond]{Lilly}
-\def\Hcolor{Purple}
-\LoadLillyBoxMode{LIMERENCE}
-\usepackage{float}
-\usepackage{tikzducks}
-\def\tduck{\tikz[scale=0.15]{\duck}}
+\documentclass{pnp-skywrath-documentclass/pnp-skywrath}
 
-\AtBeginDocument{%
-    \addtocontents{lof}{\protect\thispagestyle{scrheadings}}%
-}
+\input{latexbasics-setup.tex}
 
-\def\blankcmd#1{\textcolor{Orchid}{\LILLYxlstTypeWriter\textbackslash\ignorespaces#1}}
-\newcommand\cmdidx[2][]{\index{#2`\blankcmd{#2}\ifx\\#1\\\else~\textsuperscript{(Paket: \T{#1})}\fi}}
-\newcommand\cmdsidx[3][]{\index{#3#2`\blankcmd{#2}\ifx\\#1\\\else~\textsuperscript{(Paket: \T{#1})}\fi}}
+\usepackage{imakeidx}
+\makeindex[title=Schlagworte,options=-s configs/index,columns=2,columnsep=0.75cm]\renewcommand{\indexname}{Schlagworte}
+
+\title{Ein grundlegender Einblick in \LaTeX}
+\subtitle{Ein (hoffentlich) einfacher Einstieg}
+\toctitle{Inhaltsübersicht}
 
 \begin{document}
-\pnpsettitle{Ein grundlegender Einblick in \LaTeX}
-\pnpsetsubtitle{Ein (hoffentlich) einfacher Einstieg}
-
-\pnptitle
-\pnptoc
+\maketitle
+\TableOfContents
 
 \textit{Dieses Dokument erhebt den Anspruch einen grundlegend-tiefblickenden Einblick in die ruhigen Oberflächen der ach so tiefen \LaTeX-Gewässer zu vermitteln. Es wird im Rahmen des EidI-Tutoriums im Wintersemester 2019/2020 ausgebaut und (hoffentlich) verfeinert. Bei der Erstellung dieses Dokuments kam keine Ente zu schaden \tduck.}
 
@@ -82,10 +74,10 @@ Möchten wir nun zum Beispiel ein \blatex{&} schreiben, so müssen wir dies durc
 Dieses Prinzip sollte sich relativ schnell eingewöhnen lassen (zumal die meisten Editoren eine solche Ersetzung automatisch vornehmen oder zumindest davor warnen).
 
 \begin{bemerkung}[Und das soll ich jetzt immer kopieren?]
-    \elable{mrk:bemcompy}Nö. Es gibt hier eine hoffentlich von mir stets aktuell gehaltene Datei, die entsprechend ein Grundgerüst zum kopieren liefert: \url{https://gist.github.com/EagleoutIce/4a1333dee677dfb6b422a7f7e79b8fe6}.
+    \label{mrk:bemcompy}Nö. Es gibt hier eine hoffentlich von mir stets aktuell gehaltene Datei, die entsprechend ein Grundgerüst zum kopieren liefert: \url{https://gist.github.com/EagleoutIce/4a1333dee677dfb6b422a7f7e79b8fe6}.
 \end{bemerkung}
 
-Unser erstes Hello-World-Dokument generieren wir nun also wie folgt (die Kommentare lasse ich hier zur Übersicht weg, das \jmark[oben]{mrk:bemcompy} verlinkte Gist enthält Kommentare).
+Unser erstes Hello-World-Dokument generieren wir nun also wie folgt (die Kommentare lasse ich hier zur Übersicht weg, das \link[mrk:bemcompy]{oben} verlinkte Gist enthält Kommentare).
 \begin{latex}
 \documentclass{article}
 
@@ -148,10 +140,10 @@ Mittels des Pakets \T{geometry} lassen sich die Seitenränder hervorragend modif
 Wir müssen nicht alle diese Optionen angeben und es gibt auch noch einige mehr die sich, in der tollen Dokumentation\footnote{\url{https://ctan.space-pro.be/tex-archive/macros/latex/contrib/geometry/geometry.pdf}} (oder auf Linux: \bbash{texdoc geometry}) nachlesen lassen. Übrigens: das ist eine Anweisung, die nicht in \blatex{document} gehört! Generell dürfen in \LaTeX{} Pakete nur außerhalb des Dokuments eingebunden werden!
 
 \begin{bemerkung}[Struktur eines \LaTeX-Dokuments]
-    Grob lässt sich ein jedes \LaTeX-Dokument in zwei Abschnitte aufteilen:\begin{ditemize}
+    Grob lässt sich ein jedes \LaTeX-Dokument in zwei Abschnitte aufteilen:\begin{itemize}
         \item Die \emph{Präambel}: Dies ist der Teil vor \clatex{\\begin\{document\}}. Hier wird die Dokumentklasse (mittels \blankcmd{documentclass}) festgelegt, es werden Pakete eingebunden (mittels \blankcmd{usepackage}), Makros konfiguriert und gegebenenfalls definiert und deklariert (kommt noch \Smiley).
         \item Der \emph{Dokumentteil}: Dies ist der Abschnitt des Dokuments, den wir durch \blatex{document}-markieren. Hier dürfen keine Pakete mehr eingebunden werden, dafür können wir allerdings Text schreiben, der dann auch so ins Dokument übernommen wird!
-    \end{ditemize}
+    \end{itemize}
 \end{bemerkung}
 
 
@@ -159,7 +151,7 @@ Wir müssen nicht alle diese Optionen angeben und es gibt auch noch einige mehr 
 
 \subsection{Einfache Formeln}
 
-Mathe kann in \LaTeX{} nicht einfach in den Text gesetzt werden. Alle folgenden Ausdrücke können wir entweder mit \clatex{:lmath: ... :rmath:} oder \clatex{:ldmath: ... :rdmath:} einrahmen. Ersteres wird den gewünschten Ausdruck wie normalen Text in die Zeile setzen: \clatex{:lmath:2:ws:+ 3:ws:= 4:rmath:} ergibt: \(2 + 3 = 4\), zweiteres wird den Ausdruck zentriert in einer sogenannten Display-Variante setzen (das Ergebnis ist in der Regel dasselbe allerdings können zum Beispiel Exponenten anders formatiert werden, da ja auch Vertikal mehr Platz genommen werden kann). So liefert \clatex{:ldmath:2:ws:+ 3:ws:= 4:rdmath:} in diesem Fall: \[2 + 3 = 4\] Die Abstände zwischen den Symbolen sind übrigens lediglich optischer Natur. In Mathe-Umgebungen werden standardmäßig \emph{alle} Leerfelder geschluckt und die Symbole mit vordefinierten Abständen gesetzt. Hierbei sind die meisten Formatierungsbefehle intuitiv: \begin{ditemize}\narrowitems
+Mathe kann in \LaTeX{} nicht einfach in den Text gesetzt werden. Alle folgenden Ausdrücke können wir entweder mit \clatex{:lmath: ... :rmath:} oder \clatex{:ldmath: ... :rdmath:} einrahmen. Ersteres wird den gewünschten Ausdruck wie normalen Text in die Zeile setzen: \clatex{:lmath:2:ws:+ 3:ws:= 4:rmath:} ergibt: \(2 + 3 = 4\), zweiteres wird den Ausdruck zentriert in einer sogenannten Display-Variante setzen (das Ergebnis ist in der Regel dasselbe allerdings können zum Beispiel Exponenten anders formatiert werden, da ja auch Vertikal mehr Platz genommen werden kann). So liefert \clatex{:ldmath:2:ws:+ 3:ws:= 4:rdmath:} in diesem Fall: \[2 + 3 = 4\] Die Abstände zwischen den Symbolen sind übrigens lediglich optischer Natur. In Mathe-Umgebungen werden standardmäßig \emph{alle} Leerfelder geschluckt und die Symbole mit vordefinierten Abständen gesetzt. Hierbei sind die meisten Formatierungsbefehle intuitiv: \begin{itemize}
     \item Einen \emph{Exponent} setzen wir durch das Hütchen (\blatex{^}), Indizes durch den Unterstrich (\blatex{_}). Möchten wir einen ganzen Block Formatieren so setzen wir ihn in geschwungene Klammern, die Reihenfolge ist unerheblich:
     \begin{defaultlst}[][listing side text,righthand width=4cm, before lower={\vspace*{-0.75\baselineskip}}]{lLatex}
 \(a^1 + b^2 = c^2\) \\
@@ -173,7 +165,7 @@ Mathe kann in \LaTeX{} nicht einfach in den Text gesetzt werden. Alle folgenden 
 \(12 * \lambda + \xi_\Omega\) \\
 \(\Psi - \Omega * \chi^\rho\)
     \end{defaultlst}
-    Eine ausführliche Liste aller Symbole befindet sich im Anhang unter \jmark[Mathematische Symbole]{mrk:mathsym}.
+    Eine ausführliche Liste aller Symbole befindet sich im Anhang unter \link[mrk:mathsym]{Mathematische Symbole}.
     \item \cmdidx{infty}\emph{Mathematische Operatoren} lassen sich in der Regel einfach durch ihren bekannten Kurzbezeichner setzen. Unendlich wird durch \blankcmd{infty}, ein (mathematischer) Pfeil durch \blankcmd{to} gekennzeichnet. Die folgende Gleichung dient als Beispiel, nicht als große Erleuchtung der Mathematik:
     \begin{defaultlst}[][listing above text,righthand width=4cm, before lower={\textit{Ergibt:}}]{lLatex}
 \[ \sum_{i=0}^\infty \frac{4\pi_2}{12 \pm \sqrt{4-3-2-i}} =
@@ -187,7 +179,7 @@ Mathe kann in \LaTeX{} nicht einfach in den Text gesetzt werden. Alle folgenden 
 
     Mit \blankcmd{middle} können so auch noch weitere Symbole innerhalb von \blatex{\\left} und \blatex{\\right} angepasst werden.
     \item \cmdidx{mathcal}\cmdidx{mathbb}Um \emph{Mengen} oder andere Objekte zu dotieren existieren \blankcmd{mathbb} und \blankcmd{mathcal}. So ergibt \blatex{:lmath:\\mathbb\{N\}:rmath:}: \(\mathbb{N}\) und \blatex{:lmath:\\mathcal\{N\}:rmath:}: \(\mathcal{N}\).
-\end{ditemize}
+\end{itemize}
 
 \subsection{Weitere wichtige und nützliche Befehle}
 % \textcolor{bondiBlue}{\textbackslash(} \textcolor{bondiBlue}{\textbackslash)}
@@ -269,13 +261,13 @@ Innerhalb dieser Umgebung können wir mittels einem Und-Symbol (\&) Spalten und 
 \begin{minipage}{\linewidth-5cm}
     \cmdidx[graphicx]{includegraphics}Im Folgenden verwenden wir das Paket \T{graphicx}, welches es uns ermöglicht PDFs, PNGs, JPGs und viele andere Grafikformate einzubinden und anzuzeigen. Vorrausgesetzt, wir haben rechts abgebildete Verzeichnisstruktur, können wir unser Bild wie folgt einsetzen:
     \begin{latex*}
-\includegraphics{Images/example.png}
+\includegraphics{images/example.png}
     \end{latex*}
 \end{minipage}\hfill\begin{minipage}{4.65cm}
     \begin{fancydir}
         [Beispielverzeichnis
             [meinetexdatei.tex, cfile={Purple}{\fontsize{4pt}{4pt}\selectfont\TeX}]
-            [Images
+            [images
                 [
                     example.png, cfile={AppleGreen}{\faImage}
                 ]
@@ -285,7 +277,7 @@ Innerhalb dieser Umgebung können wir mittels einem Und-Symbol (\&) Spalten und 
 \end{minipage}\newline
 Da das Bild in der Regel viel zu groß/klein (auf jedenfall nicht richtig \Tongey) rüberkommt, können wir diesem Befehl wieder \emph{optionale} Parameter mittels den eckigen Klammern übergeben. So können wir es entweder auf eine gewünschte Breite (\T{width=XXcm}), höhe (\T{height=XXcm}) oder ein gewünschtes Seitenverhältnis (\T{width=XXcm,height=XXcm}) skalieren. Möchten wir, dass das Bild nicht verzerrt wird, so genügt die zusätzliche Angabe von \T{keepaspectratio}. So liefert:
  \begin{defaultlst}[][listing outside text,righthand width=4cm, before lower={\vspace*{-0.75\baselineskip}}]{lLatex}
-\includegraphics[width=3.5cm]{Images/example.png}
+\includegraphics[width=3.5cm]{images/example.png}
 \end{defaultlst}
 
 \subsection{Grafiken betiteln und auflisten}
@@ -294,16 +286,16 @@ Da das Bild in der Regel viel zu groß/klein (auf jedenfall nicht richtig \Tonge
 \begin{minipage}{\linewidth-5cm}
 \begin{latex}
 \begin{figure}\centering
-    \includegraphics[width=3.5cm]{Images/example.png}
-    \caption{Ich, wer sonst?}
+    \includegraphics[width=3.5cm]{images/example.png}
+    \caption{It is, the sigil!}
 \end{figure}
 \end{latex}
 \end{minipage}\hfill\begin{minipage}{5cm}
     \begin{figure}[H]\centering
-        \includegraphics[width=3.5cm]{Images/example.png}
-        \caption{Ich, wer sonst?}
+        \includegraphics[width=3.5cm]{images/example.png}
+        \caption{It is, the sigil!}
     \end{figure}
-\end{minipage}\newline
+\end{minipage}\smallskip\newline
 Das \blankcmd{centering} wurde hier angefügt, damit die Grafik zentriert über der Beschriftung angezeigt wird, ist allerdings optional. \blankcmd{caption} akzeptiert (wie \blankcmd{section}) ein optionales Argument in eckigen Klammern unter dem es dann in der zugehörigen Liste aufgeführt wird. Diese generieren wir durch \blankcmd{listoffigures}:\newline
 \begin{minipage}{\linewidth}
     \listoffigures
@@ -344,7 +336,7 @@ Vertikale Linien können in den Spalten mit einem \T{|} (senkrechten Strich) ang
 \subsection{Auflistungen}
 
 \cmdidx{item}Man kennt sie, sie sind fast überall: Listen (Schreckens-Musik-Einspieler \Laughey). \LaTeX{} unterscheidet drei Arten von Listen (die ich hier innerhalb einer beschrifteten Liste vorstelle):
-\begin{description}\narrowitems
+\begin{description}
     \item[Unsortierte Listen:] \index{itemize`\blatex{itemize}}Diese erzeugen wir mittels der \blatex{itemize}-Umgebung:
     \begin{defaultlst}[][listing side text,righthand width=6.5cm, before lower={\vspace*{-0.75\baselineskip}}]{lLatex}
 \begin{itemize}
@@ -714,7 +706,7 @@ Hm doof, jetzt hat er die For-Schleife in der gleichen Zeile begonnen wie auch d
 \end{algorithm}
 
 Diese können wir auch mittels einiger Modifikationen (wieder: konsultiert für genaueres die Dokumentation) in der gleichen Zeile wie Bedingungen/Schleifen etc. setzen. Hierzu schreiben wir sie in runde Klammern nach dem Befehl:
-\begin{latex}
+\begin{latex}[morekeywords={[2]{\\tcp*}}]
 \begin{algorithm}
     \KwIn{Eine epische Eingabe}
     \KwOut{Eine unglaubliche Ausgabe}
@@ -742,18 +734,18 @@ Diese können wir auch mittels einiger Modifikationen (wieder: konsultiert für 
 \long\def\ProduceMathList#1#2#3{%
     \index{#1}\index{#1!#2}%
     {\footnotesize\begin{multicols}{4}
-        \begin{ditemize}\narrowitems
+        \begin{itemize}
             \foreach \csn in {#3} {
                 \item \cmdsidx{\csn}{#1!#2!}\lstshowcmd[language=lLatex,morekeywords={[5]{\csn}}]{:lmath::bs:\csn:rmath:} (\ensuremath{\csname\csn\endcsname})
             }
-        \end{ditemize}
+        \end{itemize}
     \end{multicols}
     }
 }
 
 \section{Tabellen und Listen}
 Die folgenden Tabellen und Listen stellen \emph{lediglich einen Ausschnitt} und somit \emph{nicht} alle verfügbaren Symbole dar. Weiter ist es durchaus möglich, dass die gezeigten Beispielsymbole, abhängig von der Schriftart und weiteren Konfigurationen in ihrer Gestalt abweichen können!
-\subsection{Mathematische Symbole}\elable{mrk:mathsym}
+\subsection{Mathematische Symbole}\label{mrk:mathsym}
 \paragraph{Griechische Variablen:}
 \ProduceMathList{Mathematische Symbole}{Griechische Variablen}{alpha,beta,Gamma,gamma,Delta,delta,epsilon,zeta,eta,Theta,theta,vartheta,iota,kappa,varkappa,Lambda,lambda,mu,nu,Xi,xi,Pi,pi,varpi,rho,varrho,Sigma,sigma,varsigma,tau,Upsilon,upsilon,Phi,phi,chi,Psi,psi,Omega,omega}
 

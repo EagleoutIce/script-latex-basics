@@ -1,0 +1,185 @@
+\usepackage[T1]{fontenc} % Kodierung des Texts
+\usepackage[utf8]{inputenc} % Damit die Dateikodierung egal ist
+
+\usepackage[main=ngerman,english]{babel}
+
+\usepackage{float,tikzducks,tikzsymbols,fontawesome,lmodern,microtype,hyperref,enumitem,array,pgf,graphicx,calc}
+
+\usepackage{lilly-dir/lilly-dir}
+
+\usepackage[many]{tcolorbox}
+\tcbuselibrary{listings}
+
+\DeclareTCBListing{defaultlst}{%
+        O{} % Listing Args
+        O{} % TCB Args
+        m   % Language
+}{%
+  enhanced jigsaw,breakable,blankest,listing only,enlarge top by=3pt,enlarge bottom by=3pt,
+  listing options={%
+    style=sol@SOPRA,
+    language=#3,#1},#2, after={\\[-0.25\baselineskip]}%
+}
+{}
+
+\def\getSopraPackage#1{\usepackage{./sopra-collection/#1/#1}}
+\getSopraPackage{sopra-listings}
+
+\solLoadLanguage{bash,latex}
+
+\def\tduck{\tikz[scale=0.15]{\duck}}
+
+\AtBeginDocument{%
+    \addtocontents{lof}{\protect\thispagestyle{scrheadings}}%
+}
+
+\def\blankcmd#1{\solGet{command}{\ttfamily\textbackslash\ignorespaces#1}}
+\newcommand\cmdidx[2][]{\index{#2`\blankcmd{#2}\ifx\\#1\\\else~\textsuperscript{(Paket: \T{#1})}\fi}}
+\newcommand\cmdsidx[3][]{\index{#3#2`\blankcmd{#2}\ifx\\#1\\\else~\textsuperscript{(Paket: \T{#1})}\fi}}
+
+\def\say#1{\glqq{#1}\grqq{}}
+
+\newcounter{brmcounter}
+\newenvironment{bemerkung}[1][]{\leavevmode\medskip\newline\refstepcounter{brmcounter}\emph{Bemerkung \arabic{brmcounter} -- #1\medskip}\\}{\bigskip\par{}}
+
+\newcommand*\link[2][]{\emph{\hyperref[#1]{#2}}}
+ 
+
+\makeatletter
+\newcommand*{\getListLength}[1]{%
+    \def\@tmpl{#1}%
+    \gdef\@c@tmp{0}%
+    \foreach \@tmp[count=\@@c@tmp] in \@tmpl {\xdef\@c@tmp{\@@c@tmp}}%
+}
+
+\newcommand*{\TypesetList}[3][typesetVoid]{\bgroup%
+    \edef\@typeset@list@and{#3}\edef\@@tmp{\noexpand\@@typesetList[\unexpanded{#1}]{#2}}\@@tmp%
+    \egroup%
+}
+
+\newcommand*{\typesetList}[2][typesetVoid]{%
+    \edef\@@tmp{\noexpand\@@typesetList[\unexpanded{#1}]{#2}}\@@tmp%
+}
+
+%% this will typeset a List in German List-Notation
+\newcommand*{\@@typesetList}[2][typesetVoid]{%
+    \def\@tmpl{#2}%
+    \getListLength{#2}%
+    \foreach \x[count=\i] in \@tmpl {%
+        \ifnum\i>1 \ifnum\i=\@c@tmp%
+        ~und \else%
+        ,\space\fi%
+        \fi%
+        \@nameuse{#1}{\x}%
+    }\ignorespaces%
+}
+
+
+\DeclareTCBListing{sclatex}{% preview latex code
+        O{} % Listing Args
+        O{} % TCB Args
+}{%
+  enhanced jigsaw,breakable,blankest,enlarge top by=3pt,enlarge bottom by=3pt,listing side text,righthand width=3.5cm,before lower={\vspace*{-0.75\baselineskip}},
+  listing options={%
+    style=sol@SOPRA,
+    language=lLatex,#1},#2, after={\\[-0.25\baselineskip]},
+}
+{}
+
+\definecolor{Purple}{RGB}{128,0,128}
+\definecolor{AppleGreen}{RGB}{141,182,0}
+
+\newcommand{\engl}[2][]{#1(engl. \textit{#2})#1}
+
+
+
+
+% algorithm
+
+
+\RequirePackage[linesnumbered,algoruled,german]{algorithm2e}
+
+\setlength{\algoheightrule}{1.15pt} % thickness of the rules above and below
+\setlength{\algotitleheightrule}{0.8pt} % thickness of the rule below the title
+
+%  We want comments
+
+\let\Comment\tcp
+\long\def\@eaglealgo@cmtfrmt#1{\color{Charcoal}\T{#1}}
+\SetCommentSty{@eaglealgo@cmtfrmt}
+\SetNoFillComment%\SetSideCommentLeft
+% \SetNlSty{T}{}{}
+
+% will expand to H only if not in multicol
+\def\@eagle@AUTOPLACEMENTALGO{%
+  \ifx\multicols\@undefined
+  \else
+     \ifnum\col@number>\@ne
+       \@twocolumntrue
+     \fi
+  \fi
+  \if@twocolumn%
+  \else H\fi%
+}
+
+% Allows to declare Code segments :D
+\def\StartCode{\Indp}
+\def\EndCode{\Indm}
+
+\SetKw{KwOr}{or}
+\SetKw{KwAnd}{and}
+
+% [#1] Float placement
+%  #2  Caption
+% [#3] short caption (=#2)
+
+\def\@eagle@algo@def@style{\rmfamily\upshape}
+\def\@eaglealgo@init{%\def\alabel##1{\gdef\@alabel{#1}}%
+  \IncMargin{1em}\def\Int{{\@eagle@algo@def@style int}}\def\Matrix{{\@eagle@algo@def@style 2DMatrix}}\def\True{{\@eagle@algo@def@style true}}\def\False{{\@eagle@algo@def@style false}}}
+\def\@eaglealgo@exit{\DecMargin{1em}}
+\def\@@@eaglestpone#1{\the\numexpr\value{#1}+1\relax}
+
+%%% Algorithm
+\let\@oldalgo\algorithm \let\end@oldalgo\endalgorithm
+\DeclareDocumentEnvironment{algorithm}{ O{\@eagle@AUTOPLACEMENTALGO} m O{#2} }{\bgroup\addcontentsline{ALGO}{section}{\makebox[.4cm][r]{\@@@eaglestpone{algocf}.} #3}\@eaglealgo@init\edef\@tbg{\noexpand\@oldalgo[#1]}\@tbg\Indm%
+}{\ifx\\#2\\\else\caption[#3]{#2}\fi\end@oldalgo\@eaglealgo@exit\egroup}
+
+\expandafter\let\expandafter\@oldalgos\csname algorithm*\endcsname \expandafter\let\expandafter\end@oldalgos\csname endalgorithm*\endcsname
+\DeclareDocumentEnvironment{algorithm*}{%
+  O{\@eagle@AUTOPLACEMENTALGO} m O{#2}
+}{\bgroup\addcontentsline{ALGO}{section}{\makebox[.4cm][r]{\@@@eaglestpone{algocf}.} #3}\@eaglealgo@init\edef\@tbg{\noexpand\@oldalgos[#1]}\@tbg\Indm%
+}{\ifx\\#2\\\else\caption[#3]{#2\label{alg:#2}}\fi\end@oldalgos\@eaglealgo@exit\egroup}
+
+
+\let\@oldprodc\procedure \let\end@oldprodc\endprocedure
+\DeclareDocumentEnvironment{procedure}{ O{\@eagle@AUTOPLACEMENTALGO} m O{#2} }{\bgroup\@eaglealgo@init%
+  \edef\@tbg{\noexpand\@oldprodc[#1]}\@tbg\ifx\\#2\\\else\caption[#3()]{#2()\label{proc:#2}}\fi\Indm%
+}{\end@oldprodc\@eaglealgo@exit\egroup}
+
+\expandafter\let\expandafter\@oldprodcs\csname procedure*\endcsname \expandafter\let\expandafter\end@oldprodcs\csname endprocedure*\endcsname
+\DeclareDocumentEnvironment{procedure*}{%
+  O{\@eagle@AUTOPLACEMENTALGO} m O{#2}
+}{\bgroup\@eaglealgo@init\edef\@tbg{\noexpand\@oldprodcs[#1]}\@tbg\ifx\\#2\\\else\caption[#3()]{#2()\label{proc:#2}}\fi\Indm%
+}{\end@oldprodcs\@eaglealgo@exit\egroup}
+
+\let\@oldalgfunc\function \let\end@oldalgfunc\endfunction
+\DeclareDocumentEnvironment{function}{ O{\@eagle@AUTOPLACEMENTALGO} m O{#2} }{\bgroup\@eaglealgo@init%
+  \edef\@tbg{\noexpand\@oldalgfunc[#1]}\@tbg\Indm%
+}{\ifx\\#2\\\else\caption[#3()]{#2()}\fi\end@oldalgfunc\@eaglealgo@exit\egroup}
+
+\expandafter\let\expandafter\@oldalgfuncs\csname function*\endcsname \expandafter\let\expandafter\end@oldalgfuncs\csname endfunction*\endcsname
+\DeclareDocumentEnvironment{function*}{%
+  O{\@eagle@AUTOPLACEMENTALGO} m O{#2}
+}{\bgroup\@eaglealgo@init\edef\@tbg{\noexpand\@oldalgfuncs[#1]}\@tbg\Indm%
+}{\ifx\\#2\\\else\caption[#3()]{#2()}\fi\end@oldalgfuncs\@eaglealgo@exit\egroup}
+
+\SetKwProg{Fn}{def}{:}{end}%~def
+
+\SetKwRepeat{Do}{do}{while}
+
+
+\newcommand{\lstshowcmd}[2][]{\edef\@tmp@@b{\noexpand\lstinline[#1]!#2!}\@tmp@@b}
+
+\def\i{\texttt{i}}
+
+\makeatother
