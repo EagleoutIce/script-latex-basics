@@ -1,0 +1,43 @@
+% comment - in case of need :D
+
+preamble "\\def\\idxsfnt{\\footnotesize\\rmfamily}%
+\\def\\idxnmbr#1{\\rmfamily\\textcolor{cprimary}{\\itshape#1}}%
+\\providecommand{\\idxfsize}{\\normalsize}%
+\\begin{theindex}%
+  \\label{sec:index}\\addcontentsline{toc}{section}{Schlagworte}"
+
+postamble "\n\n\\end{theindex}"
+group_skip "\n\\indexspace\n"
+
+heading_prefix "\n\n\\noindent{\\centering\\begin{tcolorbox}[pnpsw@tocstyle,halign=center,valign=center,width=6.25cm]%
+    \\normalsize\\textbf{"
+heading_suffix "}%\n\\end{tcolorbox}}\\par\\nopagebreak\n"
+headings_flag 1
+
+numhead_positive "Nummern"
+numhead_negative "Nummern"
+symhead_positive "\\small Symbole"
+symhead_negative "\\small Symbole"
+delim_0 "\\,\\dotfill\\,\\iftrue\\idxnmbr{\\hyperpage{"
+delim_1 ":\\quad\\iftrue\\idxnmbr{\\hyperpage{"
+delim_2 "\\iffalse"
+
+item_0 "\n  \\item\\idxfsize "
+item_01 "\n    \\subitem\\idxfsize "
+item_1 "\n    \\subitem\\idxfsize "
+item_2 "\n      \\subsubitem\\idxfsize "
+item_12 "\n      \\subsubitem\\idxsfnt "
+item_2  ", "
+
+encap_prefix "\\"
+encap_infix "{"
+encap_suffix "}"
+
+quote "~"
+actual "@"
+
+delim_t "}}\\fi"
+delim_n "}}, \\idxnmbr\\hyperpage{"
+
+indent_space "\t"
+indent_length 4 
