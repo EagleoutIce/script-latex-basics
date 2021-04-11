@@ -221,7 +221,7 @@ Für die im Folgenden vorgestellten Umgebungen empfiehlt es sich, das Paket \T{a
 \[ Hallo Welt \cdot \frac{\text{Hallo We} lt}{14\pi} \]
 \end{defaultlst}
 
-\index{align?\blatex{align}}\index{align*?\blatex{align*}}Weiter sinnvoll ist die Umgebung \blatex{align}, die es mittels des Und-Symbols (\blatex{&}) erlaubt Gleichungen horizontal zu mitteln. \textit{Übrigens: Eine Umgebung besitzt in Latex einen Namen (wie \blatex{align}), der den Befehlen \blankcmd{begin} und \blankcmd{end} übergeben werden muss. Diese Befehle begrenzen dann die jeweilige Umgebung.}Eine neue Zeile startet hierbei \blatex{\\\\}:
+\index{align@\blatex{align}}\index{align*@\blatex{align*}}Weiter sinnvoll ist die Umgebung \blatex{align}, die es mittels des Und-Symbols (\blatex{&}) erlaubt Gleichungen horizontal zu mitteln. \textit{Übrigens: Eine Umgebung besitzt in Latex einen Namen (wie \blatex{align}), der den Befehlen \blankcmd{begin} und \blankcmd{end} übergeben werden muss. Diese Befehle begrenzen dann die jeweilige Umgebung.}Eine neue Zeile startet hierbei \blatex{\\\\}:
     \begin{defaultlst}[][listing side text,righthand width=6.5cm, before lower={\vspace*{-0.75\baselineskip}}]{lLatex}
 \begin{align}
     42 * 3 &= 21 * 6 \\
@@ -230,7 +230,7 @@ Für die im Folgenden vorgestellten Umgebungen empfiehlt es sich, das Paket \T{a
 \end{align}
     \end{defaultlst}
 Die seitliche Nummerierung kann durch das Setzen eines Sternchens und somit dem Verwenden von \blatex{align*} unterdrückt werden.\par{}
-\index{pmatrix?\blatex{pmatrix}}\index{matrix?\blatex{matrix}}Eine Matrix können wir mittels \blatex{pmatrix} erzeugen. Möchten wir eine Matrix ohne Klammern (oder mit eigenen Klammern), so können wir komplett Analog mittels \blatex{matrix} eine Matrix ohne diese erzeugen.\par{}
+\index{pmatrix@\blatex{pmatrix}}\index{matrix@\blatex{matrix}}Eine Matrix können wir mittels \blatex{pmatrix} erzeugen. Möchten wir eine Matrix ohne Klammern (oder mit eigenen Klammern), so können wir komplett Analog mittels \blatex{matrix} eine Matrix ohne diese erzeugen.\par{}
 Innerhalb dieser Umgebung können wir mittels einem Und-Symbol (\&) Spalten und \blatex{\\} Zeilen trennen. Hilfreich sollt ein diesem Kontext das folgende Beispiel sein:
 \begin{sclatex}[][]
 \(\begin{pmatrix}
@@ -239,7 +239,7 @@ Innerhalb dieser Umgebung können wir mittels einem Und-Symbol (\&) Spalten und 
     x_1 & 3 & 3 & 7
 \end{pmatrix}\)
 \end{sclatex}
-\index{cases?\blatex{cases}}Möchten wir eine partiell definierte Funktion anzeigen, so empfiehlt sich \blatex{cases}, das an sich noch eine geschweifte Klammer auf der linken Seite hinzufügt:
+\index{cases@\blatex{cases}}Möchten wir eine partiell definierte Funktion anzeigen, so empfiehlt sich \blatex{cases}, das an sich noch eine geschweifte Klammer auf der linken Seite hinzufügt:
 \begin{sclatex}[][righthand width=5.5cm,before lower={\scriptsize}]
 \(\min(x,y) = \begin{cases}
     x, & \text{ falls } x < y, \\
@@ -283,7 +283,7 @@ Da das Bild in der Regel viel zu groß/klein (auf jedenfall nicht richtig \Tonge
 
 \subsection{Grafiken betiteln und auflisten}
 
-\index{figure?\blatex{figure}}\cmdidx{caption}\cmdidx{listoffigures}Von Haus aus liefert uns \LaTeX{} die Umgebung \blatex{figure}, mit der wir Bilder einfach beschriften und auch (ähnlich zu \blankcmd{tableofcontents}) auflisten können. Mittels \blatex{\\caption} lassen sich die Bildunterschriften angeben:\newline
+\index{figure@\blatex{figure}}\cmdidx{caption}\cmdidx{listoffigures}Von Haus aus liefert uns \LaTeX{} die Umgebung \blatex{figure}, mit der wir Bilder einfach beschriften und auch (ähnlich zu \blankcmd{tableofcontents}) auflisten können. Mittels \blatex{\\caption} lassen sich die Bildunterschriften angeben:\newline
 \begin{minipage}{\linewidth-5cm}
 \begin{latex}
 \begin{figure}\centering
@@ -304,7 +304,7 @@ Das \blankcmd{centering} wurde hier angefügt, damit die Grafik zentriert über 
 
 \subsection{Schnelle Tabellen}
 
-\index{tabular?\blatex{tabular}}\cmdidx{hline}Tabellen werden über die Umgebung \blatex{tabular} erzeugt, wobei diese ein weiteres Argument benötigt: die Spalten, beziehungsweise genauer: die Ausrichtung der Spalten. Die wichtigsten hier sind \typesetList[T]{l,c,r,m,p}, wobei die ersten drei jeweils der links-bündigen \engl{left}, zentriertern \engl{center} und rechts-bündigen \engl{right} Spalte entsprechen, eine neue Zeile wird mit \blatex{\\\\} eingeleitet, Spalten werden durch \blatex{\&} getrennt:
+\index{tabular@\blatex{tabular}}\cmdidx{hline}Tabellen werden über die Umgebung \blatex{tabular} erzeugt, wobei diese ein weiteres Argument benötigt: die Spalten, beziehungsweise genauer: die Ausrichtung der Spalten. Die wichtigsten hier sind \typesetList[T]{l,c,r,m,p}, wobei die ersten drei jeweils der links-bündigen \engl{left}, zentriertern \engl{center} und rechts-bündigen \engl{right} Spalte entsprechen, eine neue Zeile wird mit \blatex{\\\\} eingeleitet, Spalten werden durch \blatex{\&} getrennt:
 \begin{defaultlst}[][listing side text,righthand width=7cm, before lower={\vspace*{-0.75\baselineskip}}]{lLatex}
 \begin{tabular}{lrc}
   Hallo & Welt & na \\
@@ -326,7 +326,7 @@ Vertikale Linien können in den Spalten mit einem \T{|} (senkrechten Strich) ang
 \end{tabular}
 \end{defaultlst}
 \textit{Hinweis: Es mag hier vielleicht wirken, als würde die \T{m}-Spalte gar nicht mittig ausgerichtet werden, allerdings kontrolliert die längste Spalte die Orientierung, es empfiehlt sich also nur entweder \T{m} oder \T{p}-Spalten zu verwenden.}\newline
-\index{table?\blatex{table}}\cmdidx{listoftables}\textit{Übrigens: Analog zu \blatex{figure} existiert die Umgebung \blatex{table}, die ebenfalls mittles \blatex{\\caption} einen Untertitel und mittels \blankcmd{listoftables} eine Auflistung erlaubt.}
+\index{table@\blatex{table}}\cmdidx{listoftables}\textit{Übrigens: Analog zu \blatex{figure} existiert die Umgebung \blatex{table}, die ebenfalls mittles \blatex{\\caption} einen Untertitel und mittels \blankcmd{listoftables} eine Auflistung erlaubt.}
 
 \subsection{Hübsche Tabellen}
 
@@ -338,7 +338,7 @@ Vertikale Linien können in den Spalten mit einem \T{|} (senkrechten Strich) ang
 
 \cmdidx{item}Man kennt sie, sie sind fast überall: Listen (Schreckens-Musik-Einspieler \Laughey). \LaTeX{} unterscheidet drei Arten von Listen (die ich hier innerhalb einer beschrifteten Liste vorstelle):
 \begin{description}
-    \item[Unsortierte Listen:] \index{itemize?\blatex{itemize}}Diese erzeugen wir mittels der \blatex{itemize}-Umgebung:\footnote{Die unsortierten Listen habe ich in diesem Dokument \emph{stark} modifiziert, sie weichen deswegen vom \say{normalen} aussehen ab.}
+    \item[Unsortierte Listen:] \index{itemize@\blatex{itemize}}Diese erzeugen wir mittels der \blatex{itemize}-Umgebung:\footnote{Die unsortierten Listen habe ich in diesem Dokument \emph{stark} modifiziert, sie weichen deswegen vom \say{normalen} aussehen ab.}
     \begin{defaultlst}[][listing side text,righthand width=6.5cm, before lower={\vspace*{-0.75\baselineskip}}]{lLatex}
 \begin{itemize}
   \item Ich bin ein Punkt
@@ -346,7 +346,7 @@ Vertikale Linien können in den Spalten mit einem \T{|} (senkrechten Strich) ang
   \item Ich bin eine Biene
 \end{itemize}
 \end{defaultlst}
-    \item[Sortierte Listen:] \index{enumerate?\blatex{enumerate}}Diese funktionieren im Prinzip analog zu \blatex{itemize}, allerdings werden diese durchnummeriert:
+    \item[Sortierte Listen:] \index{enumerate@\blatex{enumerate}}Diese funktionieren im Prinzip analog zu \blatex{itemize}, allerdings werden diese durchnummeriert:
         \begin{defaultlst}[][listing side text,righthand width=6.5cm, before lower={\vspace*{-0.75\baselineskip}}]{lLatex}
 \begin{enumerate}
   \item Ich bin ein Punkt
@@ -354,7 +354,7 @@ Vertikale Linien können in den Spalten mit einem \T{|} (senkrechten Strich) ang
   \item Ich bin eine Biene
 \end{enumerate}
 \end{defaultlst}
-    \item[Beschriftete Liste] \index{description?\blatex{description}}Hier Kann bei jedem Element mittels Eckigen Klammern noch der Bezeichner für den Punkt übergeben werden (\textit{Genau genommen kann dies bei jeder Liste gemacht werden, aber naja, es gibt nur selten Grund dazu}):
+    \item[Beschriftete Liste] \index{description@\blatex{description}}Hier Kann bei jedem Element mittels Eckigen Klammern noch der Bezeichner für den Punkt übergeben werden (\textit{Genau genommen kann dies bei jeder Liste gemacht werden, aber naja, es gibt nur selten Grund dazu}):
     \begin{defaultlst}[][listing side text,righthand width=6.5cm, before lower={\vspace*{-0.75\baselineskip}}]{lLatex}
 \begin{description}
   \item[Punkt A] Ich bin ein Punkt
@@ -374,7 +374,7 @@ Alle diese Listen vollführen automatisch Zeilen- und Seitenumbrüche sowie Einr
 
 \section{Source- und Pseudocode}
 \subsection{Java-Code}
-\index{lstlisting?\blatex{lstlisting}\textsuperscript{(Paket: \T{listing})}}\cmdidx[listings]{lstinline}\cmdidx[listings]{lstinputlisting}Zur farblichen Hervorhebung von Quellcode eignet sich das Paket \T{listings}, welches nebst der Umgebung \blatex{lstlisting} noch Befehle wie \blatex{\\lstinline} und \blatex{\\lstinputlisting} hinzufügt. Standardmäßig sind Umlaute ein Problem, dem werden wir uns allerdings auch noch annehmen:\medskip\\
+\index{lstlisting@\blatex{lstlisting}\textsuperscript{(Paket: \T{listing})}}\cmdidx[listings]{lstinline}\cmdidx[listings]{lstinputlisting}Zur farblichen Hervorhebung von Quellcode eignet sich das Paket \T{listings}, welches nebst der Umgebung \blatex{lstlisting} noch Befehle wie \blatex{\\lstinline} und \blatex{\\lstinputlisting} hinzufügt. Standardmäßig sind Umlaute ein Problem, dem werden wir uns allerdings auch noch annehmen:\medskip\\
 \begin{minipage}{0.5\linewidth}
 \begin{latex}
 \begin{lstlisting}
@@ -470,7 +470,7 @@ Verwenden wir hier \lstinline[language=java,style=]|int crop| anstelle von \lsti
     extendedchars   = true,
     numberstyle     = \scriptsize, % Kleine Nummerierung
     % frame           = single,  % wenn rahmen gewünscht
-    numbers         = left, % wir wollen immer Zeilennumern
+    numbers         = left, % wir wollen immer Zeilennummern
     numbersep       = 7pt % Diese sollen weiter sein
 }
 % TODO: Anmerken, dass leerzeilen nicht erlaubt sind, und warum (\long-Definition)
@@ -508,7 +508,7 @@ public static void
     language=java, % Nutze implizit Java
     alsoletter={@_}, % Methoden/Interfaces können diese Zeichen enthalten
     comment=[l]{//}, % Ein Zeilenkommentar beginnt mit '//'
-    morecomment=[s]{/*}{*/}, % Mehrzeiliger Kommenta
+    morecomment=[s]{/*}{*/}, % Mehrzeiliger Kommentar
     keywordsprefix={@}, % Für interfaces
     morekeywords={String, var}, % Markiere farblich
     morekeywords=[2]{System} % Markiere kursiv
@@ -599,7 +599,7 @@ Ein Problem haben wir noch: Umlaute, deswegen verwenden wir \emph{literate}s, da
 Die $1$ steht übrigens jeweils dafür, dass nur ein Zeichen entsteht. Dies lässt sich nun einfach kopieren und verwenden, beziehungsweise, wo wir schon beim kopieren sind, der Beispielcode für das Dokument befindet sich hier: \url{https://gist.github.com/EagleoutIce/1490bfd4d71eef73b032670921eab69a}.
 
 \subsection{Pseudocode}
-%\index{algorithm?\blatex{algorithm}}
+%\index{algorithm@\blatex{algorithm}}
 Zum Schreiben von Pseudocode gibt es das Paket \T{algorithm2e}, welches die Umgebung \blatex{algorithm} liefert, innerhalb der wir eine Reihe von Befehlen an die Hand bekommen.\par{}
 Innerhalb der Umgebung, können wir einfach drauf los schreiben.\footnote{Für weitere Informationen wie man dieses Paket optisch einrichtet bitte einfach in die Dokumentation sehen \Smiley.} Wichtig ist allerdings: wir sollten einen Algorithmus stets mittels \blatex{\\caption} benennen (das ist nicht wirklich nötig, empfiehlt sich allerdings \Smiley)
 \begin{latex}
@@ -809,7 +809,7 @@ Wir beginnen, indem ich den gesamten Code für drei Aufgaben zeige und diesen da
 \end{latex}
 
 \cmdidx{title}\cmdidx{author}\cmdidx{date}\cmdidx{maketitle}Mittels \blankcmd{title}, \blankcmd{author} und \blankcmd{date} setzten wir die Daten für \blankcmd{maketitle}. Sie kännen eigentlich so ersetzt werden, was sie tun sollte intuitiv klar sein \Smiley.\smallskip\newline
-\index{aufgabe?\blatex{aufgabe}\textsuperscript{(Übungsblatt-template)}}\index{aufgaben?\blatex{aufgaben}\textsuperscript{(Übungsblatt-template)}}Es gibt zwei weitere Umgebungen zu entdecken: \blatex{aufgabe} und \blatex{aufgaben}. Erstere notiert eine neue Aufgabe, wobei diese automatisch durchnummeriert wird. In geschwungene Klammern dahinter gilt es den Titel zu setzen, man kann auch nichts eintragen, in diesem Fall wird auch kein Doppelpunkt gesetzt. Als optionales Argument kann in eckigen Klammern die Punktzahl übergeben werden (\textit{siehe: \blatex{\\begin\{aufgabe\}[4.5:ws:Punkte]\{Eine Ente:ldots:\}}}).\smallskip\newline
+\index{aufgabe@\blatex{aufgabe}\textsuperscript{(Übungsblatt-template)}}\index{aufgaben@\blatex{aufgaben}\textsuperscript{(Übungsblatt-template)}}Es gibt zwei weitere Umgebungen zu entdecken: \blatex{aufgabe} und \blatex{aufgaben}. Erstere notiert eine neue Aufgabe, wobei diese automatisch durchnummeriert wird. In geschwungene Klammern dahinter gilt es den Titel zu setzen, man kann auch nichts eintragen, in diesem Fall wird auch kein Doppelpunkt gesetzt. Als optionales Argument kann in eckigen Klammern die Punktzahl übergeben werden (\textit{siehe: \blatex{\\begin\{aufgabe\}[4.5:ws:Punkte]\{Eine Ente:ldots:\}}}).\smallskip\newline
 Innerhalb der \blatex{aufgabe}-Umgebung kann man dann mittels \blatex{aufgaben} analog zu \blatex{enumerate} seine Teilaufgaben notieren (\textit{siehe: Tanze mit den Sternen}).
 
 Das Ergebnis sieht wie folgt aus (beschnitten):
