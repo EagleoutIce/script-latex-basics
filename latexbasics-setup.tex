@@ -36,16 +36,16 @@
 }
 
 \def\blankcmd#1{\solGet{command}{\ttfamily\textbackslash\ignorespaces#1}}
-\newcommand\cmdidx[2][]{\index{#2`\blankcmd{#2}\ifx\\#1\\\else~\textsuperscript{(Paket: \T{#1})}\fi}}
-\newcommand\cmdsidx[3][]{\index{#3#2`\blankcmd{#2}\ifx\\#1\\\else~\textsuperscript{(Paket: \T{#1})}\fi}}
+\newcommand\cmdidx[2][]{\relax\label{cmdlk:#2}\index{#2?\protect\hyperref[cmdlk:#2]{\protect\blankcmd{#2}\ifx!#1!\else~\textsuperscript{(Paket: \T{#1})}\fi}}}
+\newcommand\cmdsidx[3][]{\relax\label{cmdlk:#2}\index{#3#2?\protect\hyperref[cmdlk:#2]{\protect\blankcmd{#2}\ifx!#1!\else~\textsuperscript{(Paket: \T{#1})}\fi}}}
 
-\def\say#1{\glqq{#1}\grqq{}}
+\def\say#1{\glqq#1\grqq{}}
 
 \newcounter{brmcounter}
 \newenvironment{bemerkung}[1][]{\leavevmode\medskip\newline\refstepcounter{brmcounter}\emph{Bemerkung \arabic{brmcounter} -- #1\medskip}\\}{\bigskip\par{}}
 
 \newcommand*\link[2][]{\emph{\hyperref[#1]{#2}}}
- 
+
 
 \makeatletter
 \newcommand*{\getListLength}[1]{%
