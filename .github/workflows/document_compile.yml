@@ -19,18 +19,22 @@ jobs:
         uses: actions/checkout@v2
         with:
             lfs: true
-  
+
       - name: Checkout submodules
         uses: textbook/git-checkout-submodule-action@master
         with:
             remote: true
-    
+
+      - name: Install pu
+        run: |
+          sudo apt install poppler-utils
+
       - name: Compile the listings-example document
         uses: xu-cheng/latex-action@v2
         with:
           working_directory: docs/listings
           root_file: lstexample.tex
-  
+
       - name: Compile the first example
         uses: xu-cheng/latex-action@v2
         with:
@@ -48,13 +52,17 @@ jobs:
         with:
           root_file: latexbasics.tex
 
+      - name: Generate Preview
+        run: |
+          pdftoppm -png -f 1 -l 1 ./latexbasics.pdf preview
+
       - name: Commit PDF
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add -f latexbasics.pdf
+          git add -f latexbasics.pdf "preview-01.png"
           git commit -m "Update PDF by workflow"
-          
+
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
