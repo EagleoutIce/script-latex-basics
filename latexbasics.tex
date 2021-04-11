@@ -28,10 +28,10 @@ Wer immer die aktuelleste Version möchte, kann auch hier nachsehen \url{https:/
 
 \subsection{\faWindows{~} Windoof}
 
-Auch wenn es \T{texlive} ebenfalls für Linux gibt, so empfiehlt sich das Verwenden von \T{Mik\TeX}. Es lässt sich hier herunterladen: \url{https://miktex.org/download}. Um nun mit \LaTeX{} arbeiten zu können benötigt man ein weiteres Programm, wobei es hier viele Vertreter gibt. So gibt es: TeXmaker\footnote{\url{https://www.xm1math.net/texmaker/download.html}}, Kile\footnote{\url{https://kile.sourceforge.io/}} und TeXstudio\footnote{\url{https://www.texstudio.org/\#download}}, wobei ich letzteres empfehle. Die Programme sind allerdings alle hinsichtlich ihres Funktionsumfangs und ihrer Verwendung vergleichbar. Im Programm angekommen (für später \Smiley) lässt sich mittels eines Pfeils (oder in der Regel dem Tastaturkürzel \T{F5}) das \LaTeX-Dokument, das es noch zu schreiben gibt, kompilieren und anzeigen. Ich werde im Folgenden natürlich nur auf \LaTeX{} und nicht auf die tollen Features der jeweiligen \TeX-Editoren eingehen.
+Auch wenn es \T{texlive} ebenfalls für Linux gibt, so empfiehlt sich das Verwenden von \T{Mik\TeX}. Es lässt sich hier herunterladen: \url{https://miktex.org/download}. Um nun mit \LaTeX{} arbeiten zu können benötigt man ein weiteres Programm, wobei es hier viele Vertreter gibt. So gibt es: TeXmaker,\footnote{\url{https://www.xm1math.net/texmaker/download.html}} Kile\footnote{\url{https://kile.sourceforge.io/}} und TeXstudio,\footnote{\url{https://www.texstudio.org/\#download}} wobei ich letzteres empfehle. Die Programme sind allerdings alle hinsichtlich ihres Funktionsumfangs und ihrer Verwendung vergleichbar. Im Programm angekommen (für später \Smiley) lässt sich mittels eines Pfeils (oder in der Regel dem Tastaturkürzel \T{F5}) das \LaTeX-Dokument, das es noch zu schreiben gibt, kompilieren und anzeigen. Ich werde im Folgenden natürlich nur auf \LaTeX{} und nicht auf die tollen Features der jeweiligen \TeX-Editoren eingehen.
 
 \subsection{\faApple{~} Apple}
-Hier gilt es zu Unterscheiden, ob es sich nun um eine Tablet- oder um einen gängigen Laptop handelt. Für letzteren Fall ist wohl folgende Anleitung am ausführlichsten: \url{https://www.latexbuch.de/latex-apple-mac-os-x-installieren/}. Für IPad und co gibt es nun eine Reihe an mal kostenpflichtigen und mal kostenlosen Apps über deren Qualität ich nichts zu sagen vermag: TeXpad\footnote{\url{https://www.texpad.com/ios}}, VerbTeX\footnote{\url{https://apps.apple.com/us/app/iverbtex-latex-editor/id560869163}} TeX Writer\footnote{\url{https://apps.apple.com/us/app/tex-writer-latex-on-the-go/id552717222}}.
+Hier gilt es zu Unterscheiden, ob es sich nun um eine Tablet- oder um einen gängigen Laptop handelt. Für letzteren Fall ist wohl folgende Anleitung am ausführlichsten: \url{https://www.latexbuch.de/latex-apple-mac-os-x-installieren/}. Für IPad und co gibt es nun eine Reihe an mal kostenpflichtigen und mal kostenlosen Apps über deren Qualität ich nichts zu sagen vermag: TeXpad,\footnote{\url{https://www.texpad.com/ios}} VerbTeX\footnote{\url{https://apps.apple.com/us/app/iverbtex-latex-editor/id560869163}} TeX Writer.\footnote{\url{https://apps.apple.com/us/app/tex-writer-latex-on-the-go/id552717222}}
 
 \subsection{\faGlobe{~} Ich mags online}
 Man muss \LaTeX{} auch nicht installieren, was den Vorteil hat, dass dieser Weg auf jeder Plattform funktioniert, die es irgendwie ins Internet schafft. Nebst \url{https://latexbase.com/} und \url{https://latexonline.cc/} gilt es die bekanntesten (und mittlerweile fusionierten) zu erwähnen: \url{https://www.sharelatex.com/} und \url{https://www.overleaf.com/}.
@@ -93,7 +93,7 @@ Hallo Welt
 \end{latex}
 
 \begin{bemerkung}[Leerfelder und -zeilen in \LaTeX]
-    \emph{Leerfelder} (dazu zählen hier auch mal Tabulatoren) kollabieren in \LaTeX{} stets zu einem Leerfeld. Ob wir nun also: \clatex[showspaces]{Hallo {} {} Welt} (die Leerfelder wurden hier markiert) oder \clatex[showspaces]{Hallo Welt} schreiben spielt keine Rolle. Für Leerzeilen gilt dasselbe. Wir können den Text in unserer \T{.tex}-Datei überall umbrechen soviel wir wollen, \LaTeX{} wird die Zeilenenden überlesen\footnote{Dies gilt nicht für Befehlssequenzen. Wir können also nicht inmitten eines Befehls wie \blatex[morekeywords={[5]{begin}}]{:bs:documentclass} eine neue Zeile starten, dies sollte aber logisch sein und wird vom Editor auch entsprechend farbliche markiert!}. \newline
+    \emph{Leerfelder} (dazu zählen hier auch mal Tabulatoren) kollabieren in \LaTeX{} stets zu einem Leerfeld. Ob wir nun also: \clatex[showspaces]{Hallo {} {} Welt} (die Leerfelder wurden hier markiert) oder \clatex[showspaces]{Hallo Welt} schreiben spielt keine Rolle. Für Leerzeilen gilt dasselbe. Wir können den Text in unserer \T{.tex}-Datei überall umbrechen soviel wir wollen, \LaTeX{} wird die Zeilenenden überlesen.\footnote{Dies gilt nicht für Befehlssequenzen. Wir können also nicht inmitten eines Befehls wie \blatex[morekeywords={[5]{begin}}]{:bs:documentclass} eine neue Zeile starten, dies sollte aber logisch sein und wird vom Editor auch entsprechend farbliche markiert!} \newline
     \emph{Leerzeilen} folgen in \LaTeX{} einem ähnlichen Muster wie Leerzeichen. Ob wir nun \(1\), \(2\) oder \(300\) einfügen spielt in \LaTeX{} keine Rolle, da sie zu einer kollabieren und einen neuen \emph{Paragraphen} anführen. Wer das jetzt noch nie gehört hat, es handelt sich, vereinfacht, um den Start einer neuen Zeile die (zur besseren Übersicht im Fließtext) ein bisschen eingerückt ist.
 \end{bemerkung}
 
@@ -111,7 +111,7 @@ Damit das Dokument kunterbunt werden kann, benötigen wir noch ein weiteres Pake
 Einige Farben werden vordefiniert, wie man sich eigene Erzeugen kann kommt (vermutlich) später.
 
 \subsection{Die wichtigsten Strukturierungsbefehle}
-Da ein Artikel für gewöhnliche weder Kapitel noch \say{Parts} besitzt, stehen die Befehle \blankcmd{chapter} und \blankcmd{part} in der \T{article}-Klasse \emph{nicht} zur Verfügung. Sie seien hier nur zur Vollständigkeit erwähnt. Es gibt allerdings genug andere Befehle mit denen wir unser Dokument strukturieren können. Die wichtigsten hiervon sind \blankcmd{section} und \blankcmd{subsection}, die es erlauben neue Abschnitte wie folgt zu setzen\footnote{Sofern ich es nicht explizit anders sage, gehören alle hier gezeigten Ausschnitte in die \blatex{document}-Umgebung.}:
+Da ein Artikel für gewöhnliche weder Kapitel noch \say{Parts} besitzt, stehen die Befehle \blankcmd{chapter} und \blankcmd{part} in der \T{article}-Klasse \emph{nicht} zur Verfügung. Sie seien hier nur zur Vollständigkeit erwähnt. Es gibt allerdings genug andere Befehle mit denen wir unser Dokument strukturieren können. Die wichtigsten hiervon sind \blankcmd{section} und \blankcmd{subsection}, die es erlauben neue Abschnitte wie folgt zu setzen:\footnote{Sofern ich es nicht explizit anders sage, gehören alle hier gezeigten Ausschnitte in die \blatex{document}-Umgebung.}
 \begin{latex}
 \section{Ich bin eine Sektion}
 % Text...
@@ -338,7 +338,7 @@ Vertikale Linien können in den Spalten mit einem \T{|} (senkrechten Strich) ang
 
 \cmdidx{item}Man kennt sie, sie sind fast überall: Listen (Schreckens-Musik-Einspieler \Laughey). \LaTeX{} unterscheidet drei Arten von Listen (die ich hier innerhalb einer beschrifteten Liste vorstelle):
 \begin{description}
-    \item[Unsortierte Listen:] \index{itemize?\blatex{itemize}}Diese erzeugen wir mittels der \blatex{itemize}-Umgebung\footnote{Die unsortierten Listen habe ich in diesem Dokument \emph{stark} modifiziert, sie weichen deswegen vom \say{normalen} aussehen ab.}:
+    \item[Unsortierte Listen:] \index{itemize?\blatex{itemize}}Diese erzeugen wir mittels der \blatex{itemize}-Umgebung:\footnote{Die unsortierten Listen habe ich in diesem Dokument \emph{stark} modifiziert, sie weichen deswegen vom \say{normalen} aussehen ab.}
     \begin{defaultlst}[][listing side text,righthand width=6.5cm, before lower={\vspace*{-0.75\baselineskip}}]{lLatex}
 \begin{itemize}
   \item Ich bin ein Punkt
@@ -363,7 +363,7 @@ Vertikale Linien können in den Spalten mit einem \T{|} (senkrechten Strich) ang
 \end{description}
 \end{defaultlst}
 \end{description}
-Alle diese Listen vollführen automatisch Zeilen- und Seitenumbrüche sowie Einrückungen. Möchte man zum Beispiel die Gestalt der Enumerierung von \blatex{enumerate} so empfiehlt sich das Paket \T{enumitem}\footnote{https://www.ctan.org/pkg/enumitem}, mit diesem ist zum Beispiel folgendes möglich:\newline
+Alle diese Listen vollführen automatisch Zeilen- und Seitenumbrüche sowie Einrückungen. Möchte man zum Beispiel die Gestalt der Enumerierung von \blatex{enumerate} so empfiehlt sich das Paket \T{enumitem},\footnote{https://www.ctan.org/pkg/enumitem} mit diesem ist zum Beispiel folgendes möglich:\newline
 \begin{defaultlst}[][listing side text,righthand width=6.5cm, before lower={\vspace*{-0.75\baselineskip}}]{lLatex}
 \begin{enumerate}[label=\alph*)]
   \item Ich bin ein Punkt
@@ -408,7 +408,7 @@ public static void
 }
 \end{plainvoid}
 \end{minipage}\newline
-Vermutlich wird das Highlighting nicht farbig sein\footnote{Es ist nur immer so aufwändig alle meine Einstellungen für Source-Code über den Haufen zu werfen.}, wir werden uns diesem aber gleich annehmen. Zuerst allerdings noch, wie wir Zeilennummern hinzufügen:
+Vermutlich wird das Highlighting nicht farbig sein,\footnote{Es ist nur immer so aufwändig alle meine Einstellungen für Source-Code über den Haufen zu werfen.} wir werden uns diesem aber gleich annehmen. Zuerst allerdings noch, wie wir Zeilennummern hinzufügen:
 \medskip\\
 \begin{minipage}{0.5\linewidth}
 \begin{latex}
@@ -440,7 +440,7 @@ Verwenden wir hier \lstinline[language=java,style=]|int crop| anstelle von \lsti
 \end{minipage}\newline
 \blatex{\\lstinputlisting} erwartet anstelle von Code den Pfad zu einer Quellcodedatei an.
 \end{bemerkung}
-\cmdidx{lstdefinestyle}Natürlich sind wir hochindividuell, und möchte, dass der Code genau so markiert wird, wie wir dies wünschen. Hierfür schreiben wir einfach folgendes in der Präambel/vor der Benutzung\footnote{Information: Es sollte keine Leerzeile in diesen Befehl eingefügt werden! Der Befehl ist simpel definiert und erlaubt keine Paragraphen innerhalb des Arguments. Analoges gilt für \blatex{\\lstdefinelanguage}.}:
+\cmdidx{lstdefinestyle}Natürlich sind wir hochindividuell, und möchte, dass der Code genau so markiert wird, wie wir dies wünschen. Hierfür schreiben wir einfach folgendes in der Präambel/vor der Benutzung:\footnote{Information: Es sollte keine Leerzeile in diesen Befehl eingefügt werden! Der Befehl ist simpel definiert und erlaubt keine Paragraphen innerhalb des Arguments. Analoges gilt für \blatex{\\lstdefinelanguage}.}
 \begin{latex}
 \lstdefinestyle{MeinStil}{
     breaklines      = true, % erlaube Zeilenumbrüche
@@ -601,7 +601,7 @@ Die $1$ steht übrigens jeweils dafür, dass nur ein Zeichen entsteht. Dies läs
 \subsection{Pseudocode}
 %\index{algorithm?\blatex{algorithm}}
 Zum Schreiben von Pseudocode gibt es das Paket \T{algorithm2e}, welches die Umgebung \blatex{algorithm} liefert, innerhalb der wir eine Reihe von Befehlen an die Hand bekommen.\par{}
-Innerhalb der Umgebung, können wir einfach drauf los schreiben\footnote{Für weitere Informationen wie man dieses Paket optisch einrichtet bitte einfach in die Dokumentation sehen \Smiley.}. Wichtig ist allerdings: wir sollten einen Algorithmus stets mittels \blatex{\\caption} benennen (das ist nicht wirklich nötig, empfiehlt sich allerdings \Smiley)
+Innerhalb der Umgebung, können wir einfach drauf los schreiben.\footnote{Für weitere Informationen wie man dieses Paket optisch einrichtet bitte einfach in die Dokumentation sehen \Smiley.} Wichtig ist allerdings: wir sollten einen Algorithmus stets mittels \blatex{\\caption} benennen (das ist nicht wirklich nötig, empfiehlt sich allerdings \Smiley)
 \begin{latex}
 \begin{algorithm}
     Hallo Welt
